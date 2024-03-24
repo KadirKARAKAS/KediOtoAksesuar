@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "37950544443",
+    "project_id": "kediotoaksesuar-5555",
+    "storage_bucket": "kediotoaksesuar-5555.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37950544443:android:253043b7631e385f7a5a1e",
+        "android_client_info": {
+          "package_name": "com.kedi.oto_aksesuar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcZ50jb9LZmNzej_PUtjRFRXRf3G1z2-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

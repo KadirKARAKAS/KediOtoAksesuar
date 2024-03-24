@@ -1,4 +1,4 @@
-package com.example.kedi_oto_aksesuar
+package com.kedi.oto_aksesuar
 
 import io.flutter.embedding.android.FlutterActivity
 
