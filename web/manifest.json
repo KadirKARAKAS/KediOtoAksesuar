@@ -1,6 +1,6 @@
 {
-    "name": "kedi_oto_aksesuar",
-    "short_name": "kedi_oto_aksesuar",
+    "name": "kediotoaksesuar",
+    "short_name": "kediotoaksesuar",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
