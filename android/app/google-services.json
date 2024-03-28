@@ -1,21 +1,22 @@
 {
   "project_info": {
-    "project_number": "705563597423",
-    "project_id": "kediotoaksesuar-c8f72",
-    "storage_bucket": "kediotoaksesuar-c8f72.appspot.com"
+    "project_number": "807826933891",
+    "firebase_url": "https://kedi-oto-aksesuar-default-rtdb.firebaseio.com",
+    "project_id": "kedi-oto-aksesuar",
+    "storage_bucket": "kedi-oto-aksesuar.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:705563597423:android:ba78faf9a159e73fb28b9a",
+        "mobilesdk_app_id": "1:807826933891:android:d4bccdfa5b515053edf3b6",
         "android_client_info": {
-          "package_name": "com.kedi.oto_aksesuar"
+          "package_name": "com.example.kedi_oto_aksesuarr"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDw8IywK9u5Ieup9untK9wyF1wbPYYBCUU"
+          "current_key": "AIzaSyBrhbLtEM9omR45bz07heLYKFaMJaOulgU"
         }
       ],
       "services": {
