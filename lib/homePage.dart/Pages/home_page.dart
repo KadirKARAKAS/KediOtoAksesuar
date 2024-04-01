@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:kedi_oto_aksesuarr/addProductPage/Page/add_product_homepage.dart';
 import 'package:kedi_oto_aksesuarr/homePage.dart/Widget/catagories_widget.dart';
 import 'package:kedi_oto_aksesuarr/homePage.dart/Widget/search_container_widget.dart';
 import 'package:kedi_oto_aksesuarr/topBar_widget.dart';
@@ -28,10 +29,26 @@ class _HomePageState extends State<HomePage> {
                   TopBarWidget(titleText: "Kedi Oto Aksesuar"),
                   const SizedBox(height: 5),
                   SearchContainerWidget(),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 10),
                   CatagoriesWidget(),
-                  const SizedBox(height: 5),
-                  Container(height: 580, width: size.width, color: Colors.red),
+                  const SizedBox(height: 10),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AddProductHomePage(),
+                          ));
+                    },
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        color: Colors.yellow,
+                      ),
+                    ),
+                  )
                 ],
               ),
             )
