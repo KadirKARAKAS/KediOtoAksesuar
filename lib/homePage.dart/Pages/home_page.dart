@@ -32,22 +32,15 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 10),
                   CatagoriesWidget(),
                   const SizedBox(height: 10),
-                  InkWell(
-                    onTap: () {
+                  FloatingActionButton(
+                    onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => AddProductHomePage(),
                           ));
                     },
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        color: Colors.yellow,
-                      ),
-                    ),
+                    backgroundColor: Colors.red,
                   )
                 ],
               ),
