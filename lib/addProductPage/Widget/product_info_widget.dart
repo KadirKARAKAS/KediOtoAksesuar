@@ -19,21 +19,43 @@ class ProductInfoWidget extends StatelessWidget {
         const SizedBox(height: 20),
         productPriceTextFieldWidget(size, productPrice),
         const SizedBox(height: 20),
-        SizedBox(
-          width: size.width,
-          height: 305,
-          child: ListView.builder(
-            padding: EdgeInsets.all(0),
-            physics: ScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return imageContainerWidget();
-            },
-          ),
-        )
+        catagoriesSelectListviewWidget(size),
+        const SizedBox(height: 20),
+        imageListViewWidget(size)
       ],
+    );
+  }
+
+  SizedBox catagoriesSelectListviewWidget(Size size) {
+    return SizedBox(
+      width: size.width,
+      height: 35,
+      child: ListView.builder(
+        physics: ScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return catagoriesContainer(index);
+        },
+      ),
+    );
+  }
+
+  SizedBox imageListViewWidget(Size size) {
+    return SizedBox(
+      width: size.width,
+      height: 305,
+      child: ListView.builder(
+        padding: EdgeInsets.all(0),
+        physics: ScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return imageContainerWidget();
+        },
+      ),
     );
   }
 
@@ -132,6 +154,23 @@ class ProductInfoWidget extends StatelessWidget {
             border: InputBorder.none,
           ),
         ),
+      ),
+    );
+  }
+
+  Padding catagoriesContainer(int index) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 5),
+      child: Container(
+        width: 80,
+        height: 35,
+        decoration: BoxDecoration(
+            color: Colors.grey.shade300,
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: const [
+              BoxShadow(
+                  blurRadius: 1, color: Colors.black26, offset: Offset(-1, 0))
+            ]),
       ),
     );
   }
