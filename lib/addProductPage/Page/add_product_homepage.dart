@@ -12,15 +12,15 @@ class AddProductHomePage extends StatefulWidget {
 class _AddProductHomePageState extends State<AddProductHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Column(
         children: [
-          const SizedBox(height: 18),
+          SizedBox(height: 18),
           TopBarWidget(titleText: "Ürün Ekle"),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
-              children: [ProductInfoWidget()],
+              children: [SizedBox(height: 30), ProductInfoWidget()],
             ),
           )
         ],
