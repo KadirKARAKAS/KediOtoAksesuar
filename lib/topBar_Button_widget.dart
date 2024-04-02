@@ -7,15 +7,24 @@ class TopBarButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Row(
-      children: [
-        Icon(Icons.arrow_back),
-        Container(
-          height: 20,
-          width: 20,
-          color: Colors.red,
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back),
+          ),
+          Text(
+            titleText,
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+          ),
+          SizedBox(width: 20),
+        ],
+      ),
     );
   }
 }

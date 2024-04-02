@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:kedi_oto_aksesuarr/constant.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ProductInfoWidget extends StatelessWidget {
-  const ProductInfoWidget({super.key});
+  ProductInfoWidget({super.key});
+  final ImagePicker picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +67,22 @@ class ProductInfoWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 3, right: 5),
       child: InkWell(
-        onTap: () {
-          print("RESİM YÜKLE");
+        onTap: () async {
+          addPhotoFunction();
+
+          var status = await Permission.storage.status;
+          print(status);
+          if (status.isDenied) {
+            await Permission.storage.request().then((value) {
+              if (value.isGranted) {}
+            });
+          } else if (status.isGranted) {
+            addPhotoFunction();
+            print('İzin önceden soruldu ve kullanıcı izni verdi');
+          } else {
+            openAppSettings();
+            print('İzin önceden soruldu ve kullanıcı izni vermedi');
+          }
         },
         child: Container(
           width: 200,
@@ -173,5 +191,13 @@ class ProductInfoWidget extends StatelessWidget {
             ]),
       ),
     );
+  }
+
+  addPhotoFunction() async {
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      selectedImagePath = image.path;
+    }
   }
 }

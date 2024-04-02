@@ -22,7 +22,7 @@ class _AddProductHomePageState extends State<AddProductHomePage> {
             child: Column(
               children: [
                 const SizedBox(height: 30),
-                const ProductInfoWidget(),
+                ProductInfoWidget(),
                 const SizedBox(height: 40),
                 saveProductButtonWidget()
               ],

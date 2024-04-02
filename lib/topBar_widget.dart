@@ -9,7 +9,7 @@ class TopBarWidget extends StatelessWidget {
       child: Text(
         titleText,
         style: const TextStyle(
-            fontSize: 28,
+            fontSize: 25,
             fontWeight: FontWeight.w600,
             shadows: [Shadow(color: Colors.black, blurRadius: 1.5)]),
       ),
