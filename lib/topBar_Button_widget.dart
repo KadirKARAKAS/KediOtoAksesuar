@@ -6,7 +6,6 @@ class TopBarButtonWidget extends StatelessWidget {
   final String titleText;
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Row(

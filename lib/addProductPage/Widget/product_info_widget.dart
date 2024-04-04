@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,28 +25,28 @@ class ProductInfoWidget extends StatelessWidget {
         const SizedBox(height: 20),
         productPriceTextFieldWidget(size, productPrice),
         const SizedBox(height: 20),
-        catagoriesSelectListviewWidget(size),
+        // catagoriesSelectListviewWidget(size),
         const SizedBox(height: 20),
         imageListViewWidget(size)
       ],
     );
   }
 
-  SizedBox catagoriesSelectListviewWidget(Size size) {
-    return SizedBox(
-      width: size.width,
-      height: 35,
-      child: ListView.builder(
-        physics: ScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return catagoriesContainer(index);
-        },
-      ),
-    );
-  }
+  // SizedBox catagoriesSelectListviewWidget(Size size) {
+  //   return SizedBox(
+  //     width: size.width,
+  //     height: 35,
+  //     child: ListView.builder(
+  //       physics: ScrollPhysics(),
+  //       scrollDirection: Axis.horizontal,
+  //       shrinkWrap: true,
+  //       itemCount: 10,
+  //       itemBuilder: (context, index) {
+  //         return catagoriesContainer(index);
+  //       },
+  //     ),
+  //   );
+  // }
 
   SizedBox imageListViewWidget(Size size) {
     return SizedBox(
@@ -68,16 +70,16 @@ class ProductInfoWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 3, right: 5),
       child: InkWell(
         onTap: () async {
-          addPhotoFunction();
-
           var status = await Permission.storage.status;
           print(status);
           if (status.isDenied) {
             await Permission.storage.request().then((value) {
-              if (value.isGranted) {}
+              if (value.isGranted) {
+                addPhotoFunction(); // İzin verildiğinde işlem yap
+              }
             });
           } else if (status.isGranted) {
-            addPhotoFunction();
+            addPhotoFunction(); // İzin önceden verildiyse işlem yap
             print('İzin önceden soruldu ve kullanıcı izni verdi');
           } else {
             openAppSettings();
@@ -94,7 +96,15 @@ class ProductInfoWidget extends StatelessWidget {
                 BoxShadow(
                     blurRadius: 2, color: Colors.black26, offset: Offset(-2, 0))
               ]),
-          child: const Icon(Icons.image, size: 40),
+          child: selectedImagePath == ""
+              ? const Icon(Icons.image, size: 40)
+              : ClipRRect(
+                  borderRadius: BorderRadius.circular(41),
+                  child: Image.file(
+                    File(selectedImagePath),
+                    fit: BoxFit.cover,
+                  ),
+                ),
         ),
       ),
     );
@@ -172,23 +182,6 @@ class ProductInfoWidget extends StatelessWidget {
             border: InputBorder.none,
           ),
         ),
-      ),
-    );
-  }
-
-  Padding catagoriesContainer(int index) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 5),
-      child: Container(
-        width: 80,
-        height: 35,
-        decoration: BoxDecoration(
-            color: Colors.grey.shade300,
-            borderRadius: BorderRadius.circular(5),
-            boxShadow: const [
-              BoxShadow(
-                  blurRadius: 1, color: Colors.black26, offset: Offset(-1, 0))
-            ]),
       ),
     );
   }
