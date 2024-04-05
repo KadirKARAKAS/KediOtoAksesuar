@@ -1,40 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class TestPage extends StatefulWidget {
-  const TestPage({super.key});
-
-  @override
-  State<TestPage> createState() => _TestPageState();
-}
-
-class _TestPageState extends State<TestPage> {
+// Ana Widget
+class PermissionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("TestPage"),
+        title: Text('Permission Example'),
       ),
-      body: SizedBox(
-        width: size.width,
-        height: 35,
-        child: ListView.builder(
-          physics: ScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.only(right: 5),
-              child: Container(
-                width: 80,
-                height: 35,
-                color: Colors.red,
-              ),
-            );
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () async {
+            var status = await Permission.storage.status;
+            if (status.isDenied) {
+              print('İzin önceden reddedildi');
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('İzin Gerekli'),
+                    content: Text(
+                        'Uygulamanın bu özelliği kullanabilmesi için depolama izni gereklidir.'),
+                    actions: <Widget>[
+                      TextButton(
+                        child: Text('Vazgeç'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: Text('İzin Ver'),
+                        onPressed: () async {
+                          var status = await Permission.storage.request();
+                          Navigator.of(context).pop();
+                          if (status.isGranted) {
+                            print('Kullanıcı izni verdi');
+                          } else {
+                            print('Kullanıcı izni vermedi');
+                          }
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            } else if (status.isGranted) {
+              print('İzin önceden soruldu ve kullanıcı izni verdi');
+            } else {
+              print('İzin önceden soruldu ve kullanıcı izni vermedi');
+            }
+            print(status);
+            print("----------------------------------------");
           },
+          child: Text('İzni Kontrol Et'),
         ),
       ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: PermissionPage(),
+  ));
 }

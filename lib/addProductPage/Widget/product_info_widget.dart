@@ -1,13 +1,21 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kedi_oto_aksesuarr/constant.dart';
+import 'package:kedi_oto_aksesuarr/test.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class ProductInfoWidget extends StatelessWidget {
+class ProductInfoWidget extends StatefulWidget {
   ProductInfoWidget({super.key});
+
+  @override
+  State<ProductInfoWidget> createState() => _ProductInfoWidgetState();
+}
+
+class _ProductInfoWidgetState extends State<ProductInfoWidget> {
   final ImagePicker picker = ImagePicker();
 
   @override
@@ -26,28 +34,25 @@ class ProductInfoWidget extends StatelessWidget {
         productPriceTextFieldWidget(size, productPrice),
         const SizedBox(height: 20),
         // catagoriesSelectListviewWidget(size),
-        const SizedBox(height: 20),
-        imageListViewWidget(size)
+        // const SizedBox(height: 20),
+        // imageListViewWidget(size),
+        imageContainerWidget(),
+        FloatingActionButton(
+          onPressed: () async {
+            // var status = await Permission.storage.status;
+            // print(status);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PermissionPage(),
+                ));
+          },
+        )
       ],
     );
   }
 
   // SizedBox catagoriesSelectListviewWidget(Size size) {
-  //   return SizedBox(
-  //     width: size.width,
-  //     height: 35,
-  //     child: ListView.builder(
-  //       physics: ScrollPhysics(),
-  //       scrollDirection: Axis.horizontal,
-  //       shrinkWrap: true,
-  //       itemCount: 10,
-  //       itemBuilder: (context, index) {
-  //         return catagoriesContainer(index);
-  //       },
-  //     ),
-  //   );
-  // }
-
   SizedBox imageListViewWidget(Size size) {
     return SizedBox(
       width: size.width,
@@ -70,32 +75,22 @@ class ProductInfoWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 3, right: 5),
       child: InkWell(
         onTap: () async {
-          var status = await Permission.storage.status;
-          print(status);
-          if (status.isDenied) {
-            await Permission.storage.request().then((value) {
-              if (value.isGranted) {
-                addPhotoFunction(); // İzin verildiğinde işlem yap
-              }
-            });
-          } else if (status.isGranted) {
-            addPhotoFunction(); // İzin önceden verildiyse işlem yap
-            print('İzin önceden soruldu ve kullanıcı izni verdi');
-          } else {
-            openAppSettings();
-            print('İzin önceden soruldu ve kullanıcı izni vermedi');
-          }
+          addPhotoFunction();
         },
         child: Container(
           width: 200,
           height: 250,
           decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(13),
-              boxShadow: const [
-                BoxShadow(
-                    blurRadius: 2, color: Colors.black26, offset: Offset(-2, 0))
-              ]),
+            color: Colors.grey.shade300,
+            borderRadius: BorderRadius.circular(13),
+            boxShadow: const [
+              BoxShadow(
+                blurRadius: 2,
+                color: Colors.black26,
+                offset: Offset(-2, 0),
+              )
+            ],
+          ),
           child: selectedImagePath == ""
               ? const Icon(Icons.image, size: 40)
               : ClipRRect(
@@ -190,7 +185,9 @@ class ProductInfoWidget extends StatelessWidget {
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
-      selectedImagePath = image.path;
+      setState(() {
+        selectedImagePath = image.path;
+      });
     }
   }
 }
