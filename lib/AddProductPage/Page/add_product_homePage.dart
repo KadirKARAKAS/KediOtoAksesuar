@@ -25,35 +25,10 @@ class _AddProductHomePageState extends State<AddProductHomePage> {
                 const SizedBox(height: 30),
                 ProductInfoWidget(),
                 const SizedBox(height: 40),
-                saveProductButtonWidget()
               ],
             ),
           )
         ],
-      ),
-    );
-  }
-
-  InkWell saveProductButtonWidget() {
-    return InkWell(
-      onTap: () {
-        print(imageURLL);
-      },
-      child: Container(
-        child: Center(
-            child: Text(
-          "Ürün Ekle",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-        )),
-        width: 120,
-        height: 45,
-        decoration: BoxDecoration(
-            color: Colors.grey.shade300,
-            borderRadius: BorderRadius.circular(6),
-            boxShadow: const [
-              BoxShadow(
-                  blurRadius: 1, color: Colors.black26, offset: Offset(-1, 1))
-            ]),
       ),
     );
   }

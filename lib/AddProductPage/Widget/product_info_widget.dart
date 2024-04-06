@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kedi_oto_app/constant.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ProductInfoWidget extends StatefulWidget {
   ProductInfoWidget({super.key});
@@ -37,16 +38,8 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
         const SizedBox(height: 20),
         imageListViewWidget(size),
         // imageContainerWidget(),
-        FloatingActionButton(
-          onPressed: () async {
-            await addToDatabase();
-            print(
-                "VERİLER EKLENDİ--------------------------------------------------------------------");
-            await storageSave();
-            print(
-                "FOTOĞRAF EKLENDİ VE BİTTİ --------------------------------------------------------------------");
-          },
-        )
+        const SizedBox(height: 20),
+        saveProductButtonWidget()
       ],
     );
   }
@@ -74,6 +67,16 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
       padding: const EdgeInsets.only(left: 3, right: 5),
       child: InkWell(
         onTap: () async {
+          try {
+            var status = await Permission.storage.status;
+            print("Permission status: $status");
+            if (status.isDenied) {
+              var result = await Permission.storage.request();
+              print("Permission request result: $result");
+            }
+          } catch (e) {
+            print("Error requesting permission: $e");
+          }
           addPhotoFunction();
         },
         child: Container(
@@ -264,5 +267,35 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
     //             ));
     //       });
     // });
+  }
+
+  InkWell saveProductButtonWidget() {
+    return InkWell(
+      onTap: () async {
+        await storageSave();
+        print(
+            "FOTOĞRAF EKLENDİ VE BİTTİ --------------------------------------------------------------------");
+        await addToDatabase();
+        print(
+            "VERİLER EKLENDİ--------------------------------------------------------------------");
+        Navigator.pop(context);
+      },
+      child: Container(
+        child: Center(
+            child: Text(
+          "Ürün Ekle",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+        )),
+        width: 120,
+        height: 45,
+        decoration: BoxDecoration(
+            color: Colors.grey.shade300,
+            borderRadius: BorderRadius.circular(6),
+            boxShadow: const [
+              BoxShadow(
+                  blurRadius: 1, color: Colors.black26, offset: Offset(-1, 1))
+            ]),
+      ),
+    );
   }
 }
