@@ -19,7 +19,7 @@ class SearchWidget extends StatelessWidget {
             padding: EdgeInsets.only(left: 5),
             child: Icon(Icons.search, size: 25),
           ),
-          hintText: "Ürün arama",
+          hintText: "Ürün aramaa",
           hintStyle: TextStyle(fontSize: 18),
           border: InputBorder.none,
         ),
