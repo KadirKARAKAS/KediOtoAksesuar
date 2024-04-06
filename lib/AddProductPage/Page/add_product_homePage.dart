@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kedi_oto_app/AddProductPage/Widget/product_info_widget.dart';
-import 'package:kedi_oto_app/constant.dart';
 import 'package:kedi_oto_app/topBarButtonWidget.dart';
 
 class AddProductHomePage extends StatefulWidget {

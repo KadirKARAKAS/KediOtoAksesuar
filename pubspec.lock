@@ -376,6 +376,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  multi_image_picker_plus:
+    dependency: "direct main"
+    description:
+      name: multi_image_picker_plus
+      sha256: f9bc06efd147e919112cacd542ba9da66a5055363a07bc1a94027a4ad1008a3b
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   path:
     dependency: transitive
     description:

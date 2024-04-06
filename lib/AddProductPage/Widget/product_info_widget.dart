@@ -22,6 +22,8 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
   var productNameTextField = TextEditingController();
   var productPriceTextField = TextEditingController();
   var productInfoTextField = TextEditingController();
+  List<XFile>? _imageFileList = [];
+  final ImagePicker _imagePicker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +38,37 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
         const SizedBox(height: 20),
         // catagoriesSelectListviewWidget(size),
         const SizedBox(height: 20),
-        imageListViewWidget(size),
+        // imageListViewWidget(size),
         // imageContainerWidget(),
+        multipleImageGridView(size),
         const SizedBox(height: 20),
-        saveProductButtonWidget()
+        saveProductButtonWidget(),
       ],
+    );
+  }
+
+  Container multipleImageGridView(Size size) {
+    return Container(
+      width: size.width,
+      height: 340,
+      decoration: BoxDecoration(
+          color: Colors.grey.shade300, borderRadius: BorderRadius.circular(15)),
+      child: GridView.builder(
+        shrinkWrap: true,
+        itemCount: _imageFileList!.length,
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: Image.file(
+              File(_imageFileList![index].path),
+              fit: BoxFit.cover,
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -297,5 +325,15 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
             ]),
       ),
     );
+  }
+
+  Future<void> selectImages() async {
+    final List<XFile>? selectedImages = await _imagePicker.pickMultiImage();
+    if (selectedImages != null && selectedImages.isNotEmpty) {
+      setState(() {
+        _imageFileList!.addAll(selectedImages);
+      });
+    }
+    print("Image List Length: ${_imageFileList!.length}");
   }
 }

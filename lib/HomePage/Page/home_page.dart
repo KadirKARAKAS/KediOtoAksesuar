@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kedi_oto_app/AddProductPage/Page/add_product_homePage.dart';
 import 'package:kedi_oto_app/HomePage/Widget/search_widget.dart';
+import 'package:kedi_oto_app/testPage.dart';
 import 'package:kedi_oto_app/topBarWidget.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,16 +15,30 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Column(
+      body: Column(
         children: [
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           TopBarWidget(titleText: "Kedi Oto Aksesuar"),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+            padding: EdgeInsets.symmetric(horizontal: 15),
             child: Column(
               children: [
                 SizedBox(height: 5),
                 SearchWidget(),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TestPage(),
+                        ));
+                  },
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    color: Colors.red,
+                  ),
+                )
               ],
             ),
           )
