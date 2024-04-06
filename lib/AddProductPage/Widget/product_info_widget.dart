@@ -36,56 +36,68 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
         const SizedBox(height: 20),
         productPriceTextFieldWidget(size, productPriceTextField),
         const SizedBox(height: 20),
-        // catagoriesSelectListviewWidget(size),
         const SizedBox(height: 20),
-        // imageListViewWidget(size),
-        // imageContainerWidget(),
         multipleImageGridView(size),
         const SizedBox(height: 20),
-        saveProductButtonWidget(),
+        saveProductButtonWidget(0),
       ],
     );
   }
 
-  Container multipleImageGridView(Size size) {
-    return Container(
-      width: size.width,
-      height: 340,
-      decoration: BoxDecoration(
-          color: Colors.grey.shade300, borderRadius: BorderRadius.circular(15)),
-      child: GridView.builder(
-        shrinkWrap: true,
-        itemCount: _imageFileList!.length,
-        gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (BuildContext context, int index) {
-          return Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: Image.file(
-              File(_imageFileList![index].path),
-              fit: BoxFit.cover,
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  // SizedBox catagoriesSelectListviewWidget(Size size) {
-  SizedBox imageListViewWidget(Size size) {
-    return SizedBox(
-      width: size.width,
-      height: 305,
-      child: ListView.builder(
-        padding: EdgeInsets.all(0),
-        physics: ScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: 1,
-        itemBuilder: (context, index) {
-          return imageContainerWidget();
-        },
+  InkWell multipleImageGridView(Size size) {
+    return InkWell(
+      onTap: () async {
+        try {
+          var status = await Permission.storage.status;
+          print("Permission status: $status");
+          if (status.isDenied) {
+            var result = await Permission.storage.request();
+            print("Permission request result: $result");
+          }
+        } catch (e) {
+          print("Error requesting permission: $e");
+        }
+        selectImages();
+      },
+      child: Container(
+        width: size.width,
+        height: 340,
+        decoration: BoxDecoration(
+            color: Colors.grey.shade300,
+            borderRadius: BorderRadius.circular(15)),
+        child: _imageFileList!.isEmpty
+            ? const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.image, size: 50),
+                    Text(
+                      "Lütfen resim seçin\n(Birden Fazla Resim Seçebilirsiniz.)",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+              )
+            : GridView.builder(
+                shrinkWrap: true,
+                itemCount: _imageFileList!.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1),
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image.file(
+                        File(_imageFileList![index].path),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
+              ),
       ),
     );
   }
@@ -221,20 +233,30 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
     }
   }
 
-  storageSave() async {
-    print('start');
-    List<String> imagePathList = selectedImagePath.split('/');
-    await FirebaseStorage.instance
-        .ref('ProductPhoto')
-        .child(imagePathList[imagePathList.length - 1])
-        .putFile(File(selectedImagePath));
-    final imageUrl = await FirebaseStorage.instance
-        .ref('ProductPhoto/${imagePathList[imagePathList.length - 1]}')
-        .getDownloadURL();
-    imageURLL = imageUrl;
+  Future<void> storageSave(List<XFile> x) async {
+    for (XFile imageFile in _imageFileList!) {
+      String imagePath = imageFile.path;
+      File image = File(imagePath);
+
+      String imageName = imagePath.split('/').last;
+      TaskSnapshot uploadSnapshot = await FirebaseStorage.instance
+          .ref('ProductPhotos/$imageName')
+          .putFile(image);
+
+      if (uploadSnapshot.state == TaskState.success) {
+        String imageUrl = await uploadSnapshot.ref.getDownloadURL();
+        print('Uploaded image URL: $imageUrl');
+
+        // imageURLL listesine URL'leri eklemek için
+        imageURLLL.add(imageUrl); // imageURLL listesine URL'leri ekleyin
+      } else {
+        // Yükleme işlemi başarısız olduysa gerekli hata işlemleri burada yapılabilir.
+        print('Image upload failed');
+      }
+    }
   }
 
-  Future<void> addToDatabase() async {
+  Future<void> addToDatabase(int index) async {
     String productName = productNameTextField.text;
     String productInfo = productInfoTextField.text;
     String productPrice = productPriceTextField.text;
@@ -243,7 +265,7 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
       "productName": productName,
       "productInfo": productInfo,
       "productPrice": productPrice,
-      "ProductPhotoURL": imageURLL,
+      "ProductPhotoURL": _imageFileList![index].path,
       'createdTime': DateTime.now()
     };
 
@@ -297,13 +319,14 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
     // });
   }
 
-  InkWell saveProductButtonWidget() {
+  InkWell saveProductButtonWidget(int index) {
     return InkWell(
       onTap: () async {
-        await storageSave();
+        print(_imageFileList![index].path);
+        await storageSave(List.empty());
         print(
             "FOTOĞRAF EKLENDİ VE BİTTİ --------------------------------------------------------------------");
-        await addToDatabase();
+        await addToDatabasee(0);
         print(
             "VERİLER EKLENDİ--------------------------------------------------------------------");
         Navigator.pop(context);
@@ -335,5 +358,58 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
       });
     }
     print("Image List Length: ${_imageFileList!.length}");
+  }
+
+  Future<void> addToDatabasee(int index) async {
+    if (_imageFileList != null &&
+        _imageFileList!.isNotEmpty &&
+        index < _imageFileList!.length) {
+      String productName = productNameTextField.text;
+      String productInfo = productInfoTextField.text;
+      String productPrice = productPriceTextField.text;
+
+      final product = {
+        "productName": productName,
+        "productInfo": productInfo,
+        "productPrice": productPrice,
+        "ProductPhotoURL": imageURLLL,
+        'createdTime': DateTime.now()
+      };
+
+      // Yeni bir belge oluşturmak için `add()` yöntemini kullanın.
+      final docRef = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("Products")
+          .add(product);
+
+      // Oluşturulan belgeye docID ekleyin.
+      await docRef.update({'docId': docRef.id});
+
+      productNameTextField.clear();
+      productInfoTextField.clear();
+      productPriceTextField.clear();
+      selectedImagePath = "";
+
+      final userRef = FirebaseFirestore.instance
+          .collection("Users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("Products")
+          .orderBy('createdTime', descending: true);
+
+      final querySnapshot = await userRef.get();
+      getdataList.clear();
+      querySnapshot.docs.forEach((doc) async {
+        await FirebaseFirestore.instance
+            .collection('Users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection("Products")
+            .doc(doc.id)
+            .update({'docId': doc.id});
+        getdataList.add(doc.data());
+      });
+    } else {
+      print("Image list is empty or index is out of range");
+    }
   }
 }
