@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyBNbhWP39nrJDNfmiDlS9qlm3aO2hONFxU</string>
+	<string>AIzaSyC4KRrsUUmf-D4y4qgGu5f-BTMin8vTmNk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>807826933891</string>
+	<string>340084891891</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.kediOtoAksesuarr.RunnerTests</string>
+	<string>com.example.kediOtoApp.RunnerTests</string>
 	<key>PROJECT_ID</key>
-	<string>kedi-oto-aksesuar</string>
+	<string>aksesuar-kedi-oto</string>
 	<key>STORAGE_BUCKET</key>
-	<string>kedi-oto-aksesuar.appspot.com</string>
+	<string>aksesuar-kedi-oto.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:807826933891:ios:6c59567a07c44a47edf3b6</string>
+	<string>1:340084891891:ios:6889f1164b234952b7d786</string>
 </dict>
 </plist>

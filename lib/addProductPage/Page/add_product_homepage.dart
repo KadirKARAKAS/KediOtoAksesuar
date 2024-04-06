@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kedi_oto_aksesuarr/addProductPage/Widget/product_info_widget.dart';
-import 'package:kedi_oto_aksesuarr/topBar_Button_widget.dart';
+import 'package:kedi_oto_app/AddProductPage/Widget/product_info_widget.dart';
+import 'package:kedi_oto_app/topBarButtonWidget.dart';
 
 class AddProductHomePage extends StatefulWidget {
   const AddProductHomePage({super.key});

@@ -4,9 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kedi_oto_aksesuarr/constant.dart';
-import 'package:kedi_oto_aksesuarr/test.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:kedi_oto_app/constant.dart';
 
 class ProductInfoWidget extends StatefulWidget {
   ProductInfoWidget({super.key});
@@ -34,20 +32,9 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
         productPriceTextFieldWidget(size, productPrice),
         const SizedBox(height: 20),
         // catagoriesSelectListviewWidget(size),
-        // const SizedBox(height: 20),
-        // imageListViewWidget(size),
-        imageContainerWidget(),
-        FloatingActionButton(
-          onPressed: () async {
-            // var status = await Permission.storage.status;
-            // print(status);
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PermissionPage(),
-                ));
-          },
-        )
+        const SizedBox(height: 20),
+        imageListViewWidget(size),
+        // imageContainerWidget(),
       ],
     );
   }
@@ -62,7 +49,7 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
         physics: ScrollPhysics(),
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        itemCount: 10,
+        itemCount: 1,
         itemBuilder: (context, index) {
           return imageContainerWidget();
         },
@@ -94,7 +81,7 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
           child: selectedImagePath == ""
               ? const Icon(Icons.image, size: 40)
               : ClipRRect(
-                  borderRadius: BorderRadius.circular(41),
+                  borderRadius: BorderRadius.circular(13),
                   child: Image.file(
                     File(selectedImagePath),
                     fit: BoxFit.cover,

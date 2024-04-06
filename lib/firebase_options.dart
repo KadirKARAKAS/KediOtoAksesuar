@@ -44,41 +44,37 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA74JFmb3eKgSNSoGR-gmt0JwKn1EWzQfE',
-    appId: '1:807826933891:web:afb543d4a5ddfb91edf3b6',
-    messagingSenderId: '807826933891',
-    projectId: 'kedi-oto-aksesuar',
-    authDomain: 'kedi-oto-aksesuar.firebaseapp.com',
-    databaseURL: 'https://kedi-oto-aksesuar-default-rtdb.firebaseio.com',
-    storageBucket: 'kedi-oto-aksesuar.appspot.com',
+    apiKey: 'AIzaSyBCLrqnQEHopE9xJrE9sLyIMld7SibWOac',
+    appId: '1:340084891891:web:8f3a7d3e371fe86db7d786',
+    messagingSenderId: '340084891891',
+    projectId: 'aksesuar-kedi-oto',
+    authDomain: 'aksesuar-kedi-oto.firebaseapp.com',
+    storageBucket: 'aksesuar-kedi-oto.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBrhbLtEM9omR45bz07heLYKFaMJaOulgU',
-    appId: '1:807826933891:android:d4bccdfa5b515053edf3b6',
-    messagingSenderId: '807826933891',
-    projectId: 'kedi-oto-aksesuar',
-    databaseURL: 'https://kedi-oto-aksesuar-default-rtdb.firebaseio.com',
-    storageBucket: 'kedi-oto-aksesuar.appspot.com',
+    apiKey: 'AIzaSyDqHpV8A1I8DWxd3JEQgOuPUnjdZvaeckA',
+    appId: '1:340084891891:android:ef8bef355b4466efb7d786',
+    messagingSenderId: '340084891891',
+    projectId: 'aksesuar-kedi-oto',
+    storageBucket: 'aksesuar-kedi-oto.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBNbhWP39nrJDNfmiDlS9qlm3aO2hONFxU',
-    appId: '1:807826933891:ios:c9fd9a6ff8b88c94edf3b6',
-    messagingSenderId: '807826933891',
-    projectId: 'kedi-oto-aksesuar',
-    databaseURL: 'https://kedi-oto-aksesuar-default-rtdb.firebaseio.com',
-    storageBucket: 'kedi-oto-aksesuar.appspot.com',
-    iosBundleId: 'com.example.kediOtoAksesuarr',
+    apiKey: 'AIzaSyC4KRrsUUmf-D4y4qgGu5f-BTMin8vTmNk',
+    appId: '1:340084891891:ios:e4903b909edf012fb7d786',
+    messagingSenderId: '340084891891',
+    projectId: 'aksesuar-kedi-oto',
+    storageBucket: 'aksesuar-kedi-oto.appspot.com',
+    iosBundleId: 'com.example.kediOtoApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBNbhWP39nrJDNfmiDlS9qlm3aO2hONFxU',
-    appId: '1:807826933891:ios:6c59567a07c44a47edf3b6',
-    messagingSenderId: '807826933891',
-    projectId: 'kedi-oto-aksesuar',
-    databaseURL: 'https://kedi-oto-aksesuar-default-rtdb.firebaseio.com',
-    storageBucket: 'kedi-oto-aksesuar.appspot.com',
-    iosBundleId: 'com.example.kediOtoAksesuarr.RunnerTests',
+    apiKey: 'AIzaSyC4KRrsUUmf-D4y4qgGu5f-BTMin8vTmNk',
+    appId: '1:340084891891:ios:6889f1164b234952b7d786',
+    messagingSenderId: '340084891891',
+    projectId: 'aksesuar-kedi-oto',
+    storageBucket: 'aksesuar-kedi-oto.appspot.com',
+    iosBundleId: 'com.example.kediOtoApp.RunnerTests',
   );
 }

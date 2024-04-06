@@ -4,17 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:kedi_oto_aksesuarr/constant.dart';
-import 'package:kedi_oto_aksesuarr/firebase_options.dart';
-import 'package:kedi_oto_aksesuarr/homePage.dart/Pages/home_page.dart';
+import 'package:kedi_oto_app/constant.dart';
+import 'package:kedi_oto_app/firebase_options.dart';
+import 'package:kedi_oto_app/HomePage/Page/home_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  Future.delayed(const Duration(milliseconds: 2000), () async {
-    await handleAppStart();
-  });
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await handleAppStart();
 }
 
 Future<void> handleAppStart() async {

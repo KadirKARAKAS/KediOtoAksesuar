@@ -1,4 +1,4 @@
-name: kedi_oto_aksesuarr
+name: kedi_oto_app
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -40,7 +40,7 @@ dependencies:
   cloud_firestore: ^4.15.10
   image_picker: ^1.0.7
   permission_handler: ^11.3.1
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
