@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kedi_oto_app/AddProductPage/Widget/product_info_widget.dart';
+import 'package:kedi_oto_app/constant.dart';
 import 'package:kedi_oto_app/topBarButtonWidget.dart';
 
 class AddProductHomePage extends StatefulWidget {
@@ -36,7 +37,7 @@ class _AddProductHomePageState extends State<AddProductHomePage> {
   InkWell saveProductButtonWidget() {
     return InkWell(
       onTap: () {
-        print("Ürün eklendi");
+        print(imageURLL);
       },
       child: Container(
         child: Center(

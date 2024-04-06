@@ -1,5 +1,8 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -15,26 +18,35 @@ class ProductInfoWidget extends StatefulWidget {
 
 class _ProductInfoWidgetState extends State<ProductInfoWidget> {
   final ImagePicker picker = ImagePicker();
+  var productNameTextField = TextEditingController();
+  var productPriceTextField = TextEditingController();
+  var productInfoTextField = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    var productName = TextEditingController();
-    var productPrice = TextEditingController();
-    var productInfo = TextEditingController();
-
     Size size = MediaQuery.of(context).size;
     return Column(
       children: [
-        productNameTextFieldWidget(size, productName),
+        productNameTextFieldWidget(size, productNameTextField),
         const SizedBox(height: 20),
-        productInfoTextFieldWidget(size, productInfo),
+        productInfoTextFieldWidget(size, productInfoTextField),
         const SizedBox(height: 20),
-        productPriceTextFieldWidget(size, productPrice),
+        productPriceTextFieldWidget(size, productPriceTextField),
         const SizedBox(height: 20),
         // catagoriesSelectListviewWidget(size),
         const SizedBox(height: 20),
         imageListViewWidget(size),
         // imageContainerWidget(),
+        FloatingActionButton(
+          onPressed: () async {
+            await addToDatabase();
+            print(
+                "VERİLER EKLENDİ--------------------------------------------------------------------");
+            await storageSave();
+            print(
+                "FOTOĞRAF EKLENDİ VE BİTTİ --------------------------------------------------------------------");
+          },
+        )
       ],
     );
   }
@@ -176,5 +188,81 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
         selectedImagePath = image.path;
       });
     }
+  }
+
+  storageSave() async {
+    print('start');
+    List<String> imagePathList = selectedImagePath.split('/');
+    await FirebaseStorage.instance
+        .ref('ProductPhoto')
+        .child(imagePathList[imagePathList.length - 1])
+        .putFile(File(selectedImagePath));
+    final imageUrl = await FirebaseStorage.instance
+        .ref('ProductPhoto/${imagePathList[imagePathList.length - 1]}')
+        .getDownloadURL();
+    imageURLL = imageUrl;
+  }
+
+  Future<void> addToDatabase() async {
+    String productName = productNameTextField.text;
+    String productInfo = productInfoTextField.text;
+    String productPrice = productPriceTextField.text;
+
+    final product = {
+      "productName": productName,
+      "productInfo": productInfo,
+      "productPrice": productPrice,
+      "ProductPhotoURL": imageURLL,
+      'createdTime': DateTime.now()
+    };
+
+    // Yeni bir belge oluşturmak için `add()` yöntemini kullanın.
+    final docRef = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("Products")
+        .add(product);
+
+    // Oluşturulan belgeye docID ekleyin.
+    await docRef.update({'docId': docRef.id});
+
+    productNameTextField.clear();
+    productInfoTextField.clear();
+    productPriceTextField.clear();
+    selectedImagePath = "";
+
+    final userRef = FirebaseFirestore.instance
+        .collection("Users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("Products")
+        .orderBy('createdTime', descending: true);
+
+    final querySnapshot = await userRef.get();
+    getdataList.clear();
+    querySnapshot.docs.forEach((doc) async {
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("Products")
+          .doc(doc.id)
+          .update({'docId': doc.id});
+      getdataList.add(doc.data());
+    });
+    //  Future.delayed(Duration(milliseconds: 500), () async {
+    // print("GETDATALİST VERİLERİ BEKLENİYOR..........");
+    // await getdataList.isEmpty
+    //     ? SizedBox(
+    //         width: size.width,
+    //         height: size.height,
+    //       )
+    //     : setState(() {
+    //         circleBool = false;
+    //         Navigator.pushReplacement(
+    //             context,
+    //             MaterialPageRoute(
+    //               builder: (context) => const MyPetsPage(),
+    //             ));
+    //       });
+    // });
   }
 }
