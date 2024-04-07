@@ -7,10 +7,12 @@ class ProductTitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          getdataList[geciciIndex]["productName"],
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
-        ));
+      alignment: Alignment.centerLeft,
+      child: Text(
+        getdataList[geciciIndex]["productName"],
+        style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
   }
 }

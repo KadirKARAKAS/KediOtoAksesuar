@@ -15,6 +15,7 @@ class _ProductsListWidgetState extends State<ProductsListWidget> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+      padding: EdgeInsets.only(top: 10),
       shrinkWrap: true,
       itemCount: getdataList.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -36,9 +37,8 @@ class _ProductsListWidgetState extends State<ProductsListWidget> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ProductDetailHomePage(),
+              builder: (context) => const ProductDetailHomePage(),
             ));
-        print(geciciIndex);
       },
       child: Stack(
         children: [
@@ -65,15 +65,21 @@ class _ProductsListWidgetState extends State<ProductsListWidget> {
                       )),
                   child: Stack(
                     children: [
-                      Center(
+                      const Center(
                           child: CircularProgressIndicator(
                         color: Colors.orange,
                       )),
-                      Container(
-                        width: 200,
-                        child: Image.network(
-                          getdataList[index]["ProductPhotoURL"][0],
-                          fit: BoxFit.cover,
+                      ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(7),
+                          topRight: Radius.circular(7),
+                        ),
+                        child: Container(
+                          width: 200,
+                          child: Image.network(
+                            getdataList[index]["ProductPhotoURL"][0],
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ],
@@ -81,9 +87,9 @@ class _ProductsListWidgetState extends State<ProductsListWidget> {
               Container(
                 width: 200,
                 height: 35,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Colors.white,
-                    borderRadius: const BorderRadiusDirectional.only(
+                    borderRadius: BorderRadiusDirectional.only(
                         bottomEnd: Radius.circular(7),
                         bottomStart: Radius.circular(7))),
                 child: Padding(
@@ -91,13 +97,14 @@ class _ProductsListWidgetState extends State<ProductsListWidget> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        getdataList[index]["productName"],
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w500),
+                      Flexible(
+                        child: Text(getdataList[index]["productName"],
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w500),
+                            overflow: TextOverflow.ellipsis),
                       ),
                       Text(
-                        "${getdataList[index]["productPrice"]} ₺",
+                        "  ${getdataList[index]["productPrice"]} ₺",
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w500),
                       ),
@@ -113,7 +120,7 @@ class _ProductsListWidgetState extends State<ProductsListWidget> {
   }
 }
 // ClipRRect(
-//                   borderRadius: const BorderRadius.only(
-//                     topLeft: Radius.circular(7),
-//                     topRight: Radius.circular(7),
-//                   ),
+                  // borderRadius: const BorderRadius.only(
+                  //   topLeft: Radius.circular(7),
+                  //   topRight: Radius.circular(7),
+                  // ),
