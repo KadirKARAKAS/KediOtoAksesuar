@@ -45,7 +45,7 @@ Future<void> handleAppStart() async {
     final userRef = FirebaseFirestore.instance
         .collection("Users")
         .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection("Product");
+        .collection("Products");
 
     final querySnapshot = await userRef.get();
     getdataList.clear();
