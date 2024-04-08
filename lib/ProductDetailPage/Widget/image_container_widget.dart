@@ -10,23 +10,25 @@ class ImageContainerWidget extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
       height: 500,
-      width: size.width,
       child: ListView.builder(
         shrinkWrap: true,
         itemCount: getdataList[geciciIndex]["ProductPhotoURL"].length,
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.only(left: 0),
         itemBuilder: (context, index) {
-          return imageContainer(size, 0);
+          String imageUrl = getdataList[geciciIndex]["ProductPhotoURL"][index];
+          return imageContainer(size, imageUrl);
         },
       ),
     );
   }
 
-  Padding imageContainer(Size size, int i) {
+  Padding imageContainer(Size size, String imageUrl) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
+      padding: const EdgeInsets.only(right: 5, left: 0),
       child: Container(
+        width: size.width,
+        color: Colors.grey.shade100,
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -34,27 +36,20 @@ class ImageContainerWidget extends StatelessWidget {
               color: Colors.orange,
             ),
             Image.network(
-              getdataList[geciciIndex]["ProductPhotoURL"][0],
+              imageUrl,
               fit: BoxFit.cover,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.orange,
+                  ),
+                );
+              },
             ),
           ],
         ),
       ),
     );
-  }
-
-  Padding deneme(int i) {
-    return Padding(
-        padding: const EdgeInsets.only(right: 7),
-        child: Stack(
-          children: [
-            Container(
-              child: Image.network(
-                getdataList[geciciIndex]["ProductPhotoURL"][0],
-                fit: BoxFit.cover,
-              ),
-            ),
-          ],
-        ));
   }
 }
