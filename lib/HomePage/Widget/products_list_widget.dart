@@ -74,7 +74,7 @@ class _ProductsListWidgetState extends State<ProductsListWidget> {
                           topLeft: Radius.circular(7),
                           topRight: Radius.circular(7),
                         ),
-                        child: Container(
+                        child: SizedBox(
                           width: 200,
                           child: Image.network(
                             getdataList[index]["ProductPhotoURL"][0],
@@ -99,13 +99,13 @@ class _ProductsListWidgetState extends State<ProductsListWidget> {
                     children: [
                       Flexible(
                         child: Text(getdataList[index]["productName"],
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w500),
                             overflow: TextOverflow.ellipsis),
                       ),
                       Text(
                         "  ${getdataList[index]["productPrice"]} ₺",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w500),
                       ),
                     ],
@@ -119,6 +119,10 @@ class _ProductsListWidgetState extends State<ProductsListWidget> {
     );
   }
 }
+
+
+
+
 // ClipRRect(
                   // borderRadius: const BorderRadius.only(
                   //   topLeft: Radius.circular(7),

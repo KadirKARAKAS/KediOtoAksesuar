@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kedi_oto_app/constant.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -301,22 +302,6 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
           .update({'docId': doc.id});
       getdataList.add(doc.data());
     });
-    //  Future.delayed(Duration(milliseconds: 500), () async {
-    // print("GETDATALİST VERİLERİ BEKLENİYOR..........");
-    // await getdataList.isEmpty
-    //     ? SizedBox(
-    //         width: size.width,
-    //         height: size.height,
-    //       )
-    //     : setState(() {
-    //         circleBool = false;
-    //         Navigator.pushReplacement(
-    //             context,
-    //             MaterialPageRoute(
-    //               builder: (context) => const MyPetsPage(),
-    //             ));
-    //       });
-    // });
   }
 
   InkWell saveProductButtonWidget(int index) {

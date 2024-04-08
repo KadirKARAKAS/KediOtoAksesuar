@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kedi_oto_app/constant.dart';
@@ -11,6 +12,7 @@ class ImageContainerWidget extends StatelessWidget {
     return Container(
       height: 500,
       child: ListView.builder(
+        key: UniqueKey(),
         shrinkWrap: true,
         itemCount: getdataList[geciciIndex]["ProductPhotoURL"].length,
         scrollDirection: Axis.horizontal,
@@ -29,27 +31,53 @@ class ImageContainerWidget extends StatelessWidget {
       child: Container(
         width: size.width,
         color: Colors.grey.shade100,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            CircularProgressIndicator(
-              color: Colors.orange,
-            ),
-            Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.orange,
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
+        child: cachedImmage(imageUrl),
+
+        // Stack(
+        //   alignment: Alignment.center,
+        //   children: [
+        //     CircularProgressIndicator(
+        //       color: Colors.orange,
+        //     ),
+        //   ],
+        // ),
       ),
     );
   }
 }
+
+Widget cachedImmage(String resimLinki) {
+  return CachedNetworkImage(
+    imageUrl: resimLinki,
+    imageBuilder: (context, imageProvioder) {
+      return Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(image: imageProvioder, fit: BoxFit.cover),
+        ),
+      );
+    },
+    placeholder: (context, url) => Container(
+      height: 250,
+      width: 164,
+      child: Center(
+        child: CircularProgressIndicator(
+          color: Colors.red,
+        ),
+      ),
+    ),
+    errorWidget: (context, url, error) => Icon(Icons.error),
+  );
+}
+
+//  Image.network(
+//               imageUrl,
+//               fit: BoxFit.cover,
+//               loadingBuilder: (context, child, loadingProgress) {
+//                 if (loadingProgress == null) return child;
+//                 return Center(
+//                   child: CircularProgressIndicator(
+//                     color: Colors.orange,
+//                   ),
+//                 );
+//               },
+//             ),
