@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -76,10 +77,8 @@ class _ProductsListWidgetState extends State<ProductsListWidget> {
                         ),
                         child: SizedBox(
                           width: 200,
-                          child: Image.network(
-                            getdataList[index]["ProductPhotoURL"][0],
-                            fit: BoxFit.cover,
-                          ),
+                          child: cachedImage(
+                              getdataList[geciciIndex]["ProductPhotoURL"][0]),
                         ),
                       ),
                     ],
@@ -120,8 +119,28 @@ class _ProductsListWidgetState extends State<ProductsListWidget> {
   }
 }
 
-
-
+Widget cachedImage(String resimLinki) {
+  return CachedNetworkImage(
+    imageUrl: resimLinki,
+    imageBuilder: (context, imageProvioder) {
+      return Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(image: imageProvioder, fit: BoxFit.cover),
+        ),
+      );
+    },
+    placeholder: (context, url) => Container(
+      height: 250,
+      width: 164,
+      child: Center(
+        child: CircularProgressIndicator(
+          color: Colors.blue,
+        ),
+      ),
+    ),
+    errorWidget: (context, url, error) => Icon(Icons.error),
+  );
+}
 
 // ClipRRect(
                   // borderRadius: const BorderRadius.only(

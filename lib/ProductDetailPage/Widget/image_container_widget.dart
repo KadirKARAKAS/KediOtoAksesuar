@@ -61,7 +61,7 @@ Widget cachedImmage(String resimLinki) {
       width: 164,
       child: Center(
         child: CircularProgressIndicator(
-          color: Colors.red,
+          color: Colors.blue,
         ),
       ),
     ),

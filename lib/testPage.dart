@@ -27,7 +27,7 @@ class _TestPageState extends State<TestPage> {
               width: 150,
               height: 200,
               color: Colors.red,
-              child: Deneme(
+              child: cachedImage(
                   "https://firebasestorage.googleapis.com/v0/b/aksesuar-kedi-oto.appspot.com/o/ProductPhotos%2F1000014347.jpg?alt=media&token=f5b06ef1-5ff4-42cb-a60b-0b8a01385fc9")),
           Container(
             width: 150,
@@ -49,7 +49,7 @@ class _TestPageState extends State<TestPage> {
   }
 }
 
-Widget Deneme(String resimLinki) {
+Widget cachedImage(String resimLinki) {
   return CachedNetworkImage(
     imageUrl: resimLinki,
     imageBuilder: (context, imageProvioder) {
