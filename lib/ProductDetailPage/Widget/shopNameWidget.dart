@@ -7,46 +7,60 @@ class ShopName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.only(left: 5),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          Text(
-            "Kedi Oto Aksesuar",
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
-          ),
-          Row(
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 15,
-                height: 15,
-                child: Image.asset("assets/star.png"),
+              Text(
+                "Kedi Oto Aksesuar",
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
               ),
-              Container(
-                width: 15,
-                height: 15,
-                child: Image.asset("assets/star.png"),
-              ),
-              Container(
-                width: 15,
-                height: 15,
-                child: Image.asset("assets/star.png"),
-              ),
-              Container(
-                width: 15,
-                height: 15,
-                child: Image.asset("assets/star.png"),
-              ),
-              Container(
-                width: 15,
-                height: 15,
-                child: Image.asset("assets/star.png"),
-              ),
+              rowWidget(),
             ],
+          ),
+          Container(
+            width: 50,
+            height: 50,
+            color: Colors.red,
           ),
         ],
       ),
+    );
+  }
+
+  Row rowWidget() {
+    return Row(
+      children: [
+        SizedBox(
+          width: 15,
+          height: 15,
+          child: Image.asset("assets/star.png"),
+        ),
+        SizedBox(
+          width: 15,
+          height: 15,
+          child: Image.asset("assets/star.png"),
+        ),
+        SizedBox(
+          width: 15,
+          height: 15,
+          child: Image.asset("assets/star.png"),
+        ),
+        SizedBox(
+          width: 15,
+          height: 15,
+          child: Image.asset("assets/star.png"),
+        ),
+        SizedBox(
+          width: 15,
+          height: 15,
+          child: Image.asset("assets/star.png"),
+        ),
+      ],
     );
   }
 }

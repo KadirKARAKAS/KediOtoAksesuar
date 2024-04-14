@@ -28,19 +28,16 @@ class ImageContainerWidget extends StatelessWidget {
   Padding imageContainer(Size size, String imageUrl) {
     return Padding(
       padding: const EdgeInsets.only(right: 5, left: 0),
-      child: Container(
-        width: size.width,
-        color: Colors.grey.shade100,
-        child: cachedImmage(imageUrl),
-
-        // Stack(
-        //   alignment: Alignment.center,
-        //   children: [
-        //     CircularProgressIndicator(
-        //       color: Colors.orange,
-        //     ),
-        //   ],
-        // ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          width: size.width - 20,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.grey.shade100,
+          ),
+          child: cachedImmage(imageUrl),
+        ),
       ),
     );
   }
