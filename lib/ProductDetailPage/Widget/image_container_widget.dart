@@ -68,16 +68,3 @@ Widget cachedImmage(String resimLinki) {
     errorWidget: (context, url, error) => Icon(Icons.error),
   );
 }
-
-//  Image.network(
-//               imageUrl,
-//               fit: BoxFit.cover,
-//               loadingBuilder: (context, child, loadingProgress) {
-//                 if (loadingProgress == null) return child;
-//                 return Center(
-//                   child: CircularProgressIndicator(
-//                     color: Colors.orange,
-//                   ),
-//                 );
-//               },
-//             ),

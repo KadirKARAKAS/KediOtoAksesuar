@@ -77,8 +77,8 @@ class _ProductsListWidgetState extends State<ProductsListWidget> {
                         ),
                         child: SizedBox(
                           width: 200,
-                          child: cachedImage(
-                              getdataList[geciciIndex]["ProductPhotoURL"][0]),
+                          child: cachedImmage(
+                              getdataList[index]["ProductPhotoURL"][0]),
                         ),
                       ),
                     ],
@@ -119,7 +119,7 @@ class _ProductsListWidgetState extends State<ProductsListWidget> {
   }
 }
 
-Widget cachedImage(String resimLinki) {
+Widget cachedImmage(String resimLinki) {
   return CachedNetworkImage(
     imageUrl: resimLinki,
     imageBuilder: (context, imageProvioder) {
@@ -141,9 +141,3 @@ Widget cachedImage(String resimLinki) {
     errorWidget: (context, url, error) => Icon(Icons.error),
   );
 }
-
-// ClipRRect(
-                  // borderRadius: const BorderRadius.only(
-                  //   topLeft: Radius.circular(7),
-                  //   topRight: Radius.circular(7),
-                  // ),
