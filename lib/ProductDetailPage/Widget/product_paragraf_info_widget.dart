@@ -9,7 +9,7 @@ class ProductParagrafInfoWidget extends StatelessWidget {
     return Align(
         alignment: Alignment.centerLeft,
         child: Text(
-          getdataList[geciciIndex]["productInfo"],
+          "Ürün açıklaması: ${getdataList[geciciIndex]["productInfo"]}",
           style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
         ));
   }
