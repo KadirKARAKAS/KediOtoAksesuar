@@ -10,24 +10,34 @@ class ShopName extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.only(left: 5),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Kedi Oto Aksesuar",
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
-              ),
-              rowWidget(),
-            ],
+          Text(
+            "Kedi Oto Aksesuar",
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
           ),
-          Container(
-            width: 50,
-            height: 50,
-            color: Colors.red,
-          ),
+          rowWidget(),
+          listviewWidgetMethod()
         ],
+      ),
+    );
+  }
+
+  SizedBox listviewWidgetMethod() {
+    return SizedBox(
+      height: 30,
+      child: ListView.builder(
+        itemCount: 2,
+        physics: ScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4), color: Colors.red),
+          );
+        },
       ),
     );
   }
