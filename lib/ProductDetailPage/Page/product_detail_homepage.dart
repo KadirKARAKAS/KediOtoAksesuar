@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:kedi_oto_app/ProductDetailPage/Widget/image_container_widget.dart';
 import 'package:kedi_oto_app/ProductDetailPage/Widget/product_paragraf_info_widget.dart';
 import 'package:kedi_oto_app/ProductDetailPage/Widget/product_title_widget.dart';
 import 'package:kedi_oto_app/topBarButtonWidget.dart';
 
+import '../Widget/buy_widget.dart';
 import '../Widget/shopNameWidget.dart';
 
 class ProductDetailHomePage extends StatefulWidget {
@@ -17,6 +20,7 @@ class ProductDetailHomePage extends StatefulWidget {
 class _ProductDetailHomePageState extends State<ProductDetailHomePage> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -25,22 +29,27 @@ class _ProductDetailHomePageState extends State<ProductDetailHomePage> {
             TopBarButtonWidget(titleText: ""),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
+              child: Stack(
                 children: [
-                  ImageContainerWidget(),
-                  const SizedBox(height: 10),
-                  Row(
+                  Column(
                     children: [
-                      shopLogo(),
-                      ShopName(),
+                      ImageContainerWidget(),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          shopLogo(),
+                          ShopName(),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      const ProductTitleWidget(),
+                      const ProductParagrafInfoWidget(),
                     ],
                   ),
-                  const SizedBox(height: 10),
-                  const ProductTitleWidget(),
-                  const ProductParagrafInfoWidget(),
                 ],
               ),
             ),
+            BuyWidget(),
           ],
         ),
       ),

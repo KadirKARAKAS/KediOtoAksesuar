@@ -6,11 +6,19 @@ class ProductParagrafInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          "Ürün açıklaması: ${getdataList[geciciIndex]["productInfo"]}",
-          style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
-        ));
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Container(
+        height: 120,
+        child: SingleChildScrollView(
+          child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Ürün açıklaması: ${getdataList[geciciIndex]["productInfo"]}",
+                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
+              )),
+        ),
+      ),
+    );
   }
 }

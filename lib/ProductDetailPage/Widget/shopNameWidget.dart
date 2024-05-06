@@ -7,7 +7,6 @@ class ShopName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.only(left: 5),
       child: Column(
@@ -18,29 +17,28 @@ class ShopName extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
           ),
           rowWidget(),
-          listviewWidgetMethod()
         ],
       ),
     );
   }
 
-  SizedBox listviewWidgetMethod() {
-    return SizedBox(
-      height: 30,
-      child: ListView.builder(
-        itemCount: 2,
-        physics: ScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4), color: Colors.red),
-          );
-        },
-      ),
-    );
-  }
+  // SizedBox listviewWidgetMethod() {
+  //   return SizedBox(
+  //     height: 30,
+  //     child: ListView.builder(
+  //       itemCount: 2,
+  //       physics: ScrollPhysics(),
+  //       scrollDirection: Axis.horizontal,
+  //       shrinkWrap: true,
+  //       itemBuilder: (context, index) {
+  //         return Container(
+  //           decoration: BoxDecoration(
+  //               borderRadius: BorderRadius.circular(4), color: Colors.red),
+  //         );
+  //       },
+  //     ),
+  //   );
+  //}
 
   Row rowWidget() {
     return Row(
