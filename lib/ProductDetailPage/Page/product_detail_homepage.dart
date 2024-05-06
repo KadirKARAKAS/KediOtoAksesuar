@@ -20,7 +20,6 @@ class ProductDetailHomePage extends StatefulWidget {
 class _ProductDetailHomePageState extends State<ProductDetailHomePage> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
