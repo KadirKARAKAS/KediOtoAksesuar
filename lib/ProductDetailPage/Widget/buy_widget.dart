@@ -1,10 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:kedi_oto_app/constant.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BuyWidget extends StatelessWidget {
-  const BuyWidget({super.key});
+  final bool isAdmin;
+
+  BuyWidget({required this.isAdmin});
+  var productTitleChanged = '';
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class BuyWidget extends StatelessWidget {
     );
   }
 
-  Padding satinAlWidget() {
+  Widget satinAlWidget() {
     return Padding(
       padding: const EdgeInsets.only(top: 5, left: 5, right: 10),
       child: Row(
@@ -29,28 +31,77 @@ class BuyWidget extends StatelessWidget {
         children: [
           productPriceWidget(),
           SizedBox(width: 10),
-          Container(
-            width: 135,
-            height: 45,
-            child: Align(
-                alignment: Alignment.center,
-                child: Text(
-                  "Satın Al",
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 22),
-                )),
-            decoration: BoxDecoration(
-                color: Colors.orange.shade400,
-                borderRadius: BorderRadius.circular(10)),
-          ),
+          InkWell(
+            onTap: () {
+              _launchURLBrowser();
+            },
+            child: isAdmin
+                ? InkWell(
+                    onTap: () {
+                      print(
+                          "GÜNCELLENEN VERİLERİ  VERİ TABANINA GÖNDERME AŞAMASI.");
+                    },
+                    child: Container(
+                      width: 135,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        color: Colors.orange.shade400,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Text(" Güncelle",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400, fontSize: 22)),
+                      ),
+                    ),
+                  )
+                : Container(
+                    width: 135,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: Colors.orange.shade400,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Text("Satın Al",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400, fontSize: 22)),
+                    ),
+                  ),
+          )
         ],
       ),
     );
   }
 
-  Text productPriceWidget() {
-    return Text(
-      "${getdataList[geciciIndex]["productPrice"]}₺",
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-    );
+  Widget productPriceWidget() {
+    return isAdmin
+        ? Expanded(
+            child: TextFormField(
+              initialValue: getdataList[geciciIndex]["productPrice"],
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+              decoration: InputDecoration(
+                labelText: 'Ürün Fiyatı',
+              ),
+              onChanged: (value) {
+                productTitleChanged = value;
+                updatePrice = productTitleChanged;
+              },
+              readOnly: !isAdmin,
+            ),
+          )
+        : Text(
+            "${getdataList[geciciIndex]["productPrice"]}₺",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+          );
+  }
+
+  _launchURLBrowser() async {
+    var url = Uri.parse(getdataList[geciciIndex]["productLink"]);
+    if (await canLaunch(url.toString())) {
+      await launch(url.toString());
+    } else {
+      print("Hata: Bağlantı açılamadı");
+    }
   }
 }

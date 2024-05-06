@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kedi_oto_app/constant.dart';
 
 class SearchWidget extends StatelessWidget {
   const SearchWidget({super.key});
@@ -23,6 +24,15 @@ class SearchWidget extends StatelessWidget {
           hintStyle: TextStyle(fontSize: 18),
           border: InputBorder.none,
         ),
+        onSubmitted: (String value) {
+          if (value == "kediotoadmin") {
+            admin = true;
+          } else {
+            admin = false;
+          }
+
+          print('Girilen metin: $value , $admin');
+        },
       ),
     );
   }

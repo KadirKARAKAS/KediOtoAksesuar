@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:kedi_oto_app/ProductDetailPage/Widget/image_container_widget.dart';
 import 'package:kedi_oto_app/ProductDetailPage/Widget/product_paragraf_info_widget.dart';
 import 'package:kedi_oto_app/ProductDetailPage/Widget/product_title_widget.dart';
+import 'package:kedi_oto_app/constant.dart';
 import 'package:kedi_oto_app/topBarButtonWidget.dart';
 
 import '../Widget/buy_widget.dart';
@@ -18,14 +19,16 @@ class ProductDetailHomePage extends StatefulWidget {
 }
 
 class _ProductDetailHomePageState extends State<ProductDetailHomePage> {
+  bool isAdminn = admin;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 10),
-            TopBarButtonWidget(titleText: ""),
+            const SizedBox(height: 10),
+            const TopBarButtonWidget(titleText: ""),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Stack(
@@ -41,14 +44,14 @@ class _ProductDetailHomePageState extends State<ProductDetailHomePage> {
                         ],
                       ),
                       const SizedBox(height: 10),
-                      const ProductTitleWidget(),
-                      const ProductParagrafInfoWidget(),
+                      ProductTitleWidget(isAdmin: isAdminn),
+                      ProductParagrafInfoWidget(isAdmin: isAdminn),
                     ],
                   ),
                 ],
               ),
             ),
-            BuyWidget(),
+            BuyWidget(isAdmin: isAdminn),
           ],
         ),
       ),

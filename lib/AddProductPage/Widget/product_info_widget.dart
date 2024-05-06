@@ -23,6 +23,8 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
   var productNameTextField = TextEditingController();
   var productPriceTextField = TextEditingController();
   var productInfoTextField = TextEditingController();
+  var productLinkTextField = TextEditingController();
+
   List<XFile>? _imageFileList = [];
   final ImagePicker _imagePicker = ImagePicker();
 
@@ -37,6 +39,7 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
         const SizedBox(height: 20),
         productPriceTextFieldWidget(size, productPriceTextField),
         const SizedBox(height: 20),
+        productLinkdWidget(size, productLinkTextField),
         const SizedBox(height: 20),
         multipleImageGridView(size),
         const SizedBox(height: 20),
@@ -199,6 +202,31 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
     );
   }
 
+  Container productLinkdWidget(
+      Size size, TextEditingController productLinkTextField) {
+    return Container(
+      width: size.width,
+      height: 50,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6),
+          color: Colors.grey.shade300,
+          boxShadow: const [
+            BoxShadow(
+                blurRadius: 1, color: Colors.black26, offset: Offset(0, 2))
+          ]),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8, right: 8),
+        child: TextField(
+          controller: productLinkTextField,
+          decoration: const InputDecoration(
+            hintText: "Ürün Linkini Girin...",
+            border: InputBorder.none,
+          ),
+        ),
+      ),
+    );
+  }
+
   Container productInfoTextFieldWidget(
       Size size, TextEditingController productInfo) {
     return Container(
@@ -307,6 +335,7 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
   InkWell saveProductButtonWidget(int index) {
     return InkWell(
       onTap: () async {
+        admin = true;
         print(_imageFileList![index].path);
         await storageSave(List.empty());
         print(
@@ -352,11 +381,13 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
       String productName = productNameTextField.text;
       String productInfo = productInfoTextField.text;
       String productPrice = productPriceTextField.text;
+      String productLink = productLinkTextField.text;
 
       final product = {
         "productName": productName,
         "productInfo": productInfo,
         "productPrice": productPrice,
+        "productLink": productLink,
         "ProductPhotoURL": imageURLLL,
         'createdTime': DateTime.now()
       };
@@ -374,6 +405,8 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
       productNameTextField.clear();
       productInfoTextField.clear();
       productPriceTextField.clear();
+      productLinkTextField.clear();
+
       selectedImagePath = "";
 
       final userRef = FirebaseFirestore.instance

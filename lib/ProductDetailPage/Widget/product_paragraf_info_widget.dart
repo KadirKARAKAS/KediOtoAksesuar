@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:kedi_oto_app/constant.dart';
 
 class ProductParagrafInfoWidget extends StatelessWidget {
-  const ProductParagrafInfoWidget({super.key});
+  final bool isAdmin;
+
+  ProductParagrafInfoWidget({required this.isAdmin});
+  String productParagrafChanged = '';
 
   @override
   Widget build(BuildContext context) {
@@ -11,12 +15,23 @@ class ProductParagrafInfoWidget extends StatelessWidget {
       child: Container(
         height: 120,
         child: SingleChildScrollView(
-          child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Ürün açıklaması: ${getdataList[geciciIndex]["productInfo"]}",
-                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
-              )),
+          child: isAdmin
+              ? TextFormField(
+                  initialValue: getdataList[geciciIndex]["productInfo"],
+                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
+                  decoration: InputDecoration(
+                    labelText: 'Ürün açıklaması',
+                  ),
+                  onChanged: (value) {
+                    productParagrafChanged = value;
+                    updatedTitle = updadteParagraf;
+                  },
+                  readOnly: !isAdmin,
+                )
+              : Text(
+                  "Ürün açıklaması: ${getdataList[geciciIndex]["productInfo"]}",
+                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
+                ),
         ),
       ),
     );

@@ -9,3 +9,7 @@ String selectedImagePath = '';
 String imageURLL = "";
 int geciciIndex = 0;
 final ImagePicker _imagePicker = ImagePicker();
+bool admin = false;
+var updatedTitle = "";
+var updadteParagraf = "";
+var updatePrice = "";
