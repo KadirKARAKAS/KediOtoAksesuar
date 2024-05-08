@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kedi_oto_app/HomePage/Page/home_page.dart';
 import 'package:kedi_oto_app/constant.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -335,7 +336,6 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
   InkWell saveProductButtonWidget(int index) {
     return InkWell(
       onTap: () async {
-        admin = true;
         print(_imageFileList![index].path);
         await storageSave(List.empty());
         print(
@@ -343,7 +343,11 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
         await addToDatabasee(0);
         print(
             "VERİLER EKLENDİ--------------------------------------------------------------------");
-        Navigator.pop(context);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ));
       },
       child: Container(
         child: Center(

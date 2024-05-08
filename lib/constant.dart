@@ -13,3 +13,4 @@ bool admin = false;
 var updatedTitle = "";
 var updadteParagraf = "";
 var updatePrice = "";
+var listeboyu = getdataList.length;

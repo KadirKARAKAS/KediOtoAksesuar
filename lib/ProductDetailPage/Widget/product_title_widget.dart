@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kedi_oto_app/constant.dart';
 
+// ignore: must_be_immutable
 class ProductTitleWidget extends StatelessWidget {
   final bool isAdmin;
 

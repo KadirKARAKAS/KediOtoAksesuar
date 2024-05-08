@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kedi_oto_app/constant.dart';
 
+// ignore: must_be_immutable
 class ProductParagrafInfoWidget extends StatelessWidget {
   final bool isAdmin;
 
@@ -28,9 +29,12 @@ class ProductParagrafInfoWidget extends StatelessWidget {
                   },
                   readOnly: !isAdmin,
                 )
-              : Text(
-                  "Ürün açıklaması: ${getdataList[geciciIndex]["productInfo"]}",
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
+              : Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    "Ürün açıklaması: ${getdataList[geciciIndex]["productInfo"]}",
+                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
+                  ),
                 ),
         ),
       ),

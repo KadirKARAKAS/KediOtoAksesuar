@@ -19,6 +19,7 @@ class _ProductsListWidgetState extends State<ProductsListWidget> {
       padding: EdgeInsets.only(top: 10),
       shrinkWrap: true,
       itemCount: getdataList.length,
+      physics: NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 0.75,

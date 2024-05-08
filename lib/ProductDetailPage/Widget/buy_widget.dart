@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kedi_oto_app/constant.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// ignore: must_be_immutable
 class BuyWidget extends StatelessWidget {
   final bool isAdmin;
 
