@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kedi_oto_app/HomePage/Page/home_page.dart';
 import 'package:kedi_oto_app/constant.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -275,15 +274,13 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
 
       if (uploadSnapshot.state == TaskState.success) {
         String imageUrl = await uploadSnapshot.ref.getDownloadURL();
-        print('Uploaded image URL: $imageUrl');
 
-        // imageURLL listesine URL'leri eklemek için
-        imageURLLL.add(imageUrl); // imageURLL listesine URL'leri ekleyin
+        imageURLLL.add(imageUrl);
       } else {
-        // Yükleme işlemi başarısız olduysa gerekli hata işlemleri burada yapılabilir.
         print('Image upload failed');
       }
     }
+    _imageFileList?.clear();
   }
 
   Future<void> addToDatabase(int index) async {
@@ -343,11 +340,8 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
         await addToDatabasee(0);
         print(
             "VERİLER EKLENDİ--------------------------------------------------------------------");
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomePage(),
-            ));
+
+        Navigator.pop(context);
       },
       child: Container(
         child: Center(
@@ -396,14 +390,12 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
         'createdTime': DateTime.now()
       };
 
-      // Yeni bir belge oluşturmak için `add()` yöntemini kullanın.
       final docRef = await FirebaseFirestore.instance
           .collection('Users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection("Products")
           .add(product);
 
-      // Oluşturulan belgeye docID ekleyin.
       await docRef.update({'docId': docRef.id});
 
       productNameTextField.clear();

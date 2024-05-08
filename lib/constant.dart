@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
+ValueNotifier<int> valueNotifierX = ValueNotifier(0);
 
 String userID = "";
 List<Map<String, dynamic>> getdataList = [];
