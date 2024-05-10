@@ -334,7 +334,6 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
   InkWell saveProductButtonWidget(int index) {
     return InkWell(
       onTap: () async {
-        print(_imageFileList![index].path);
         await storageSave(List.empty());
         print(
             "FOTOĞRAF EKLENDİ VE BİTTİ --------------------------------------------------------------------");
@@ -381,6 +380,8 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
     if (_imageFileList != null &&
         _imageFileList!.isNotEmpty &&
         index < _imageFileList!.length) {
+      _imageFileList!.clear();
+
       String productName = productNameTextField.text;
       String productInfo = productInfoTextField.text;
       String productPrice = productPriceTextField.text;
@@ -395,14 +396,12 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
         'createdTime': DateTime.now()
       };
 
-      // Yeni bir belge oluşturmak için `add()` yöntemini kullanın.
       final docRef = await FirebaseFirestore.instance
           .collection('Users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection("Products")
           .add(product);
 
-      // Oluşturulan belgeye docID ekleyin.
       await docRef.update({'docId': docRef.id});
 
       _imageFileList!.clear();
