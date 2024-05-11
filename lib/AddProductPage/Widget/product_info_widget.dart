@@ -264,6 +264,7 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
   }
 
   Future<void> storageSave(List<XFile> x) async {
+    imageURLLL.clear();
     for (XFile imageFile in _imageFileList!) {
       String imagePath = imageFile.path;
       File image = File(imagePath);
@@ -282,6 +283,7 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
         print('Image upload failed');
       }
     }
+    print("Image URLSSS  $imageURLLL");
   }
 
   Future<void> addToDatabase(int index) async {
@@ -381,7 +383,7 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
         _imageFileList!.isNotEmpty &&
         index < _imageFileList!.length) {
       _imageFileList!.clear();
-
+      print("ImageUrlll addToDb  $imageURLLL");
       String productName = productNameTextField.text;
       String productInfo = productInfoTextField.text;
       String productPrice = productPriceTextField.text;
