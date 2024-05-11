@@ -29,23 +29,53 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
   List<XFile>? _imageFileList = [];
   final ImagePicker _imagePicker = ImagePicker();
 
-  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Column(
+    return Stack(
       children: [
-        productNameTextFieldWidget(size, productNameTextField),
-        const SizedBox(height: 20),
-        productInfoTextFieldWidget(size, productInfoTextField),
-        const SizedBox(height: 20),
-        productPriceTextFieldWidget(size, productPriceTextField),
-        const SizedBox(height: 20),
-        productLinkdWidget(size, productLinkTextField),
-        const SizedBox(height: 20),
-        multipleImageGridView(size),
-        const SizedBox(height: 20),
-        saveProductButtonWidget(0),
+        Column(
+          children: [
+            productNameTextFieldWidget(size, productNameTextField),
+            const SizedBox(height: 20),
+            productInfoTextFieldWidget(size, productInfoTextField),
+            const SizedBox(height: 20),
+            productPriceTextFieldWidget(size, productPriceTextField),
+            const SizedBox(height: 20),
+            productLinkdWidget(size, productLinkTextField),
+            const SizedBox(height: 20),
+            multipleImageGridView(size),
+            const SizedBox(height: 20),
+            saveProductButtonWidget(0),
+            FloatingActionButton(
+              onPressed: () {
+                circleBool = false;
+              },
+            )
+          ],
+        ),
+
+        // circleWidgetEnSon(),
+        loadingCircle(),
       ],
+    );
+  }
+
+  Positioned circleWidgetEnSon() {
+    return Positioned.fill(
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            circleBool = true;
+          });
+        },
+        splashColor: Colors
+            .transparent, // Tıklama efektinin rengini transparent yaparak efekti kaldırın
+        highlightColor: Colors
+            .transparent, // Tıklama efektinin rengini transparent yaparak efekti kaldırın
+        child: Container(
+          color: Colors.transparent,
+        ),
+      ),
     );
   }
 
@@ -336,18 +366,19 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
   InkWell saveProductButtonWidget(int index) {
     return InkWell(
       onTap: () async {
-        await storageSave(List.empty());
-        print(
-            "FOTOĞRAF EKLENDİ VE BİTTİ --------------------------------------------------------------------");
-        await addToDatabasee(0);
-        print(
-            "VERİLER EKLENDİ--------------------------------------------------------------------");
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomePage(),
-            ),
-            (route) => false);
+        // await storageSave(List.empty());
+        // print(
+        //     "FOTOĞRAF EKLENDİ VE BİTTİ --------------------------------------------------------------------");
+        // await addToDatabasee(0);
+        // print(
+        //     "VERİLER EKLENDİ--------------------------------------------------------------------");
+
+        // Navigator.pushAndRemoveUntil(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) => HomePage(),
+        //     ),
+        //     (route) => false);
       },
       child: Container(
         child: Center(
@@ -441,5 +472,20 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
     } else {
       print("Image list is empty or index is out of range");
     }
+  }
+
+  Widget loadingCircle() {
+    return AbsorbPointer(
+      absorbing: circleBool,
+      child: SizedBox(
+        height: 50,
+        width: 50,
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.orange,
+          strokeWidth: 5,
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+        ),
+      ),
+    );
   }
 }

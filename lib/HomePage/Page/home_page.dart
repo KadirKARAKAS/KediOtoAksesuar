@@ -5,6 +5,7 @@ import 'package:kedi_oto_app/AddProductPage/Page/add_product_homePage.dart';
 import 'package:kedi_oto_app/HomePage/Widget/products_list_widget.dart';
 import 'package:kedi_oto_app/HomePage/Widget/search_widget.dart';
 import 'package:kedi_oto_app/constant.dart';
+import 'package:kedi_oto_app/testpage.dart';
 import 'package:kedi_oto_app/topBarWidget.dart';
 
 class HomePage extends StatefulWidget {
@@ -57,7 +58,13 @@ class _HomePageState extends State<HomePage> {
                   SearchWidget(),
                   ProductsListWidget(),
                   InkWell(
-                    onTap: () async {},
+                    onTap: () async {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TestPage(),
+                          ));
+                    },
                     child: Container(
                       width: 50,
                       height: 50,
