@@ -46,16 +46,11 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
             multipleImageGridView(size),
             const SizedBox(height: 20),
             saveProductButtonWidget(0),
-            FloatingActionButton(
-              onPressed: () {
-                circleBool = false;
-              },
-            )
           ],
         ),
 
         // circleWidgetEnSon(),
-        loadingCircle(),
+        // loadingCircle(),
       ],
     );
   }
@@ -366,19 +361,19 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
   InkWell saveProductButtonWidget(int index) {
     return InkWell(
       onTap: () async {
-        // await storageSave(List.empty());
-        // print(
-        //     "FOTOĞRAF EKLENDİ VE BİTTİ --------------------------------------------------------------------");
-        // await addToDatabasee(0);
-        // print(
-        //     "VERİLER EKLENDİ--------------------------------------------------------------------");
+        await storageSave(List.empty());
+        print(
+            "FOTOĞRAF EKLENDİ VE BİTTİ --------------------------------------------------------------------");
+        await addToDatabasee(0);
+        print(
+            "VERİLER EKLENDİ--------------------------------------------------------------------");
 
-        // Navigator.pushAndRemoveUntil(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (context) => HomePage(),
-        //     ),
-        //     (route) => false);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ),
+            (route) => false);
       },
       child: Container(
         child: Center(
@@ -474,18 +469,18 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
     }
   }
 
-  Widget loadingCircle() {
-    return AbsorbPointer(
-      absorbing: circleBool,
-      child: SizedBox(
-        height: 50,
-        width: 50,
-        child: CircularProgressIndicator(
-          backgroundColor: Colors.orange,
-          strokeWidth: 5,
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-        ),
-      ),
-    );
-  }
+  // Widget loadingCircle() {
+  //   return AbsorbPointer(
+  //     absorbing: circleBool,
+  //     child: SizedBox(
+  //       height: 50,
+  //       width: 50,
+  //       child: CircularProgressIndicator(
+  //         backgroundColor: Colors.orange,
+  //         strokeWidth: 5,
+  //         valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+  //       ),
+  //     ),
+  //   );
+  // }
 }

@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:kedi_oto_app/HomePage/Page/home_page.dart';
 import 'package:kedi_oto_app/constant.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -7,7 +10,6 @@ class BuyWidget extends StatelessWidget {
   final bool isAdmin;
 
   BuyWidget({required this.isAdmin});
-  var productTitleChanged = '';
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +21,12 @@ class BuyWidget extends StatelessWidget {
           height: 70,
           color: Colors.grey.shade300,
         ),
-        satinAlWidget()
+        satinAlWidget(context),
       ],
     );
   }
 
-  Widget satinAlWidget() {
+  Widget satinAlWidget(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 5, left: 5, right: 10),
       child: Row(
@@ -38,8 +40,45 @@ class BuyWidget extends StatelessWidget {
             },
             child: isAdmin
                 ? InkWell(
-                    onTap: () {
-                      print(productParagrafChanged);
+                    onTap: () async {
+                      updateProduct({
+                        "productName": productTitleChanged,
+                        "productInfo": productParagrafChanged,
+                        "productPrice": productPriceChanged,
+                      });
+                      await updateProduct(newData);
+
+                      productTitleChanged = "";
+                      productParagrafChanged = "";
+                      productPriceChanged = "";
+                      getdataList.clear();
+                      //YENİ GETDATALİSTİ ÇEKME YERİ
+                      final userRef = FirebaseFirestore.instance
+                          .collection("Users")
+                          .doc(FirebaseAuth.instance.currentUser!.uid)
+                          .collection("Products")
+                          .orderBy('createdTime', descending: true);
+
+                      final querySnapshot = await userRef.get();
+                      getdataList.clear();
+                      querySnapshot.docs.forEach((doc) async {
+                        // Her bir belge için...
+                        await FirebaseFirestore.instance
+                            .collection('Users')
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                            .collection("Products")
+                            .doc(doc.id)
+                            .update({'docId': doc.id}); // Belgeyi güncelle
+                        getdataList
+                            .add(doc.data()); // Veriyi getdataList'e ekle
+                      });
+
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomePage(),
+                          ),
+                          (route) => false);
                     },
                     child: Container(
                       width: 135,
@@ -85,7 +124,6 @@ class BuyWidget extends StatelessWidget {
               ),
               onChanged: (value) {
                 productPriceChanged = value;
-                // updatedTitle = updadteParagraf;
               },
               readOnly: !isAdmin,
             ),
@@ -104,4 +142,25 @@ class BuyWidget extends StatelessWidget {
       print("Hata: Bağlantı açılamadı");
     }
   }
+
+  Future<void> updateProduct(Map<String, dynamic> newData) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection("Users")
+          .doc(userID)
+          .collection("Products")
+          .doc(getdataList[geciciIndex]["docId"])
+          .update(newData);
+
+      print('Ürün güncellendi.');
+    } catch (e) {
+      print('Hata oluştu: $e');
+    }
+  }
+
+  Map<String, dynamic> newData = {
+    "productName": productTitleChanged,
+    "productInfo": productParagrafChanged,
+    "productPrice": productPriceChanged,
+  };
 }

@@ -59,11 +59,7 @@ class _HomePageState extends State<HomePage> {
                   ProductsListWidget(),
                   InkWell(
                     onTap: () async {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TestPage(),
-                          ));
+                      print(getdataList.length);
                     },
                     child: Container(
                       width: 50,
