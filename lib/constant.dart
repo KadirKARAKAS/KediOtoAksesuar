@@ -14,7 +14,12 @@ int geciciIndex = 0;
 final ImagePicker _imagePicker = ImagePicker();
 bool admin = false;
 bool circleBool = false;
-var updatedTitle = "";
 var updadteParagraf = "";
 var updatePrice = "";
 var listeboyu = getdataList.length;
+
+String productTitleChanged = '';
+String productParagrafChanged = '';
+String productPriceChanged = '';
+
+var updatedTitle = "";

@@ -7,7 +7,6 @@ class ProductParagrafInfoWidget extends StatelessWidget {
   final bool isAdmin;
 
   ProductParagrafInfoWidget({required this.isAdmin});
-  String productParagrafChanged = '';
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,7 @@ class ProductParagrafInfoWidget extends StatelessWidget {
                   ),
                   onChanged: (value) {
                     productParagrafChanged = value;
-                    updatedTitle = updadteParagraf;
+                    // updatedTitle = updadteParagraf;
                   },
                   readOnly: !isAdmin,
                 )

@@ -21,8 +21,8 @@ class ProductTitleWidget extends StatelessWidget {
                 labelText: 'Ürün başlığı',
               ),
               onChanged: (value) {
-                productNameChanged = value;
-                updatedTitle = productNameChanged;
+                productTitleChanged = value;
+                // updatedTitle = updadteParagraf;
               },
               readOnly: !isAdmin,
             )

@@ -39,8 +39,7 @@ class BuyWidget extends StatelessWidget {
             child: isAdmin
                 ? InkWell(
                     onTap: () {
-                      print(
-                          "GÜNCELLENEN VERİLERİ  VERİ TABANINA GÖNDERME AŞAMASI.");
+                      print(productParagrafChanged);
                     },
                     child: Container(
                       width: 135,
@@ -85,8 +84,8 @@ class BuyWidget extends StatelessWidget {
                 labelText: 'Ürün Fiyatı',
               ),
               onChanged: (value) {
-                productTitleChanged = value;
-                updatePrice = productTitleChanged;
+                productPriceChanged = value;
+                // updatedTitle = updadteParagraf;
               },
               readOnly: !isAdmin,
             ),
