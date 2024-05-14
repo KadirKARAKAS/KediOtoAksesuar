@@ -46,32 +46,13 @@ class BuyWidget extends StatelessWidget {
                         "productInfo": productParagrafChanged,
                         "productPrice": productPriceChanged,
                       });
-                      await updateProduct(newData);
+                      print(
+                          "$productTitleChanged,$productParagrafChanged,$productPriceChanged");
+                      // await updateProduct(newData);
 
                       productTitleChanged = "";
                       productParagrafChanged = "";
                       productPriceChanged = "";
-                      getdataList.clear();
-                      //YENİ GETDATALİSTİ ÇEKME YERİ
-                      final userRef = FirebaseFirestore.instance
-                          .collection("Users")
-                          .doc(FirebaseAuth.instance.currentUser!.uid)
-                          .collection("Products")
-                          .orderBy('createdTime', descending: true);
-
-                      final querySnapshot = await userRef.get();
-                      getdataList.clear();
-                      querySnapshot.docs.forEach((doc) async {
-                        // Her bir belge için...
-                        await FirebaseFirestore.instance
-                            .collection('Users')
-                            .doc(FirebaseAuth.instance.currentUser!.uid)
-                            .collection("Products")
-                            .doc(doc.id)
-                            .update({'docId': doc.id}); // Belgeyi güncelle
-                        getdataList
-                            .add(doc.data()); // Veriyi getdataList'e ekle
-                      });
 
                       Navigator.pushAndRemoveUntil(
                           context,
