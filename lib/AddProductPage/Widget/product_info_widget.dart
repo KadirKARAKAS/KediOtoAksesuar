@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
@@ -48,9 +49,9 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
             saveProductButtonWidget(0),
           ],
         ),
-
-        // circleWidgetEnSon(),
-        // loadingCircle(),
+        Positioned.fill(
+          child: Center(child: loadingCircle()),
+        ),
       ],
     );
   }
@@ -63,10 +64,8 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
             circleBool = true;
           });
         },
-        splashColor: Colors
-            .transparent, // Tıklama efektinin rengini transparent yaparak efekti kaldırın
-        highlightColor: Colors
-            .transparent, // Tıklama efektinin rengini transparent yaparak efekti kaldırın
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         child: Container(
           color: Colors.transparent,
         ),
@@ -361,6 +360,10 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
   InkWell saveProductButtonWidget(int index) {
     return InkWell(
       onTap: () async {
+        setState(() {
+          circleBool = true;
+        });
+        print(circleBool);
         await storageSave(List.empty());
         print(
             "FOTOĞRAF EKLENDİ VE BİTTİ --------------------------------------------------------------------");
@@ -368,6 +371,9 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
         print(
             "VERİLER EKLENDİ--------------------------------------------------------------------");
 
+        setState(() {
+          circleBool = false;
+        });
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
@@ -469,18 +475,21 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
     }
   }
 
-  // Widget loadingCircle() {
-  //   return AbsorbPointer(
-  //     absorbing: circleBool,
-  //     child: SizedBox(
-  //       height: 50,
-  //       width: 50,
-  //       child: CircularProgressIndicator(
-  //         backgroundColor: Colors.orange,
-  //         strokeWidth: 5,
-  //         valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-  //       ),
-  //     ),
-  //   );
-  // }
+  Widget loadingCircle() {
+    if (circleBool) {
+      return Stack(children: [
+        SizedBox(
+          height: 50,
+          width: 50,
+          child: CircularProgressIndicator(
+            backgroundColor: Colors.white,
+            strokeWidth: 5,
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
+          ),
+        )
+      ]);
+    } else {
+      return SizedBox.shrink();
+    }
+  }
 }
