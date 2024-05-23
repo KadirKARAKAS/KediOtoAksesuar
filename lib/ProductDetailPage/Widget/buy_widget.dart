@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kedi_oto_app/HomePage/Page/home_page.dart';
 import 'package:kedi_oto_app/constant.dart';
@@ -41,25 +40,51 @@ class BuyWidget extends StatelessWidget {
             child: isAdmin
                 ? InkWell(
                     onTap: () async {
-                      updateProduct({
-                        "productName": productTitleChanged,
-                        "productInfo": productParagrafChanged,
-                        "productPrice": productPriceChanged,
-                      });
-                      print(
-                          "$productTitleChanged,$productParagrafChanged,$productPriceChanged");
-                      // await updateProduct(newData);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Ürün Kaydet'),
+                            content: const SingleChildScrollView(
+                              child: Text(
+                                  'Ürünü güncellemek veya silmek için lütfen seçim yapnınız .'),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text('Sil'),
+                                onPressed: () {
+                                  print("Ürün Silindi");
+                                },
+                              ),
+                              TextButton(
+                                child: const Text('Güncelle'),
+                                onPressed: () {
+                                  print("Ürün güncellendi");
+                                  updateProduct({
+                                    "productName": productTitleChanged,
+                                    "productInfo": productParagrafChanged,
+                                    "productPrice": productPriceChanged,
+                                  });
+                                  print(
+                                      "$productTitleChanged,$productParagrafChanged,$productPriceChanged");
+                                  // await updateProduct(newData);
 
-                      productTitleChanged = "";
-                      productParagrafChanged = "";
-                      productPriceChanged = "";
+                                  productTitleChanged = "";
+                                  productParagrafChanged = "";
+                                  productPriceChanged = "";
 
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomePage(),
-                          ),
-                          (route) => false);
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => HomePage(),
+                                      ),
+                                      (route) => false);
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
                     child: Container(
                       width: 135,
