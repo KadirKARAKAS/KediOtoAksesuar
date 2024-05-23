@@ -326,7 +326,7 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
     // Yeni bir belge oluşturmak için `add()` yöntemini kullanın.
     final docRef = await FirebaseFirestore.instance
         .collection('Users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .doc("IQX8DBt1HaXXg6qdBIfMS0OLsEe2")
         .collection("Products")
         .add(product);
 
@@ -340,7 +340,7 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
 
     final userRef = FirebaseFirestore.instance
         .collection("Users")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .doc("IQX8DBt1HaXXg6qdBIfMS0OLsEe2")
         .collection("Products")
         .orderBy('createdTime', descending: true);
 
@@ -349,7 +349,7 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
     querySnapshot.docs.forEach((doc) async {
       await FirebaseFirestore.instance
           .collection('Users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .doc("IQX8DBt1HaXXg6qdBIfMS0OLsEe2")
           .collection("Products")
           .doc(doc.id)
           .update({'docId': doc.id});
@@ -432,7 +432,7 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
 
       final docRef = await FirebaseFirestore.instance
           .collection('Users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .doc("IQX8DBt1HaXXg6qdBIfMS0OLsEe2")
           .collection("Products")
           .add(product);
 
@@ -455,7 +455,7 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
 
       final userRef = FirebaseFirestore.instance
           .collection("Users")
-          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .doc("IQX8DBt1HaXXg6qdBIfMS0OLsEe2")
           .collection("Products")
           .orderBy('createdTime', descending: true);
 
@@ -464,7 +464,7 @@ class _ProductInfoWidgetState extends State<ProductInfoWidget> {
       querySnapshot.docs.forEach((doc) async {
         await FirebaseFirestore.instance
             .collection('Users')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .doc("IQX8DBt1HaXXg6qdBIfMS0OLsEe2")
             .collection("Products")
             .doc(doc.id)
             .update({'docId': doc.id});

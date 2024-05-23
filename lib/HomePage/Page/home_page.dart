@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
 
     final userRef = FirebaseFirestore.instance
         .collection("Users")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .doc("IQX8DBt1HaXXg6qdBIfMS0OLsEe2")
         .collection("Products");
 
     final querySnapshot = await userRef.get();

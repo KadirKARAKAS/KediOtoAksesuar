@@ -54,6 +54,13 @@ class BuyWidget extends StatelessWidget {
                                 child: const Text('Sil'),
                                 onPressed: () {
                                   print("Ürün Silindi");
+                                  deleteProduct();
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => HomePage(),
+                                      ),
+                                      (route) => false);
                                 },
                               ),
                               TextButton(
@@ -153,7 +160,7 @@ class BuyWidget extends StatelessWidget {
     try {
       await FirebaseFirestore.instance
           .collection("Users")
-          .doc(userID)
+          .doc("IQX8DBt1HaXXg6qdBIfMS0OLsEe2")
           .collection("Products")
           .doc(getdataList[geciciIndex]["docId"])
           .update(newData);
@@ -169,4 +176,19 @@ class BuyWidget extends StatelessWidget {
     "productInfo": productParagrafChanged,
     "productPrice": productPriceChanged,
   };
+
+  Future<void> deleteProduct() async {
+    try {
+      await FirebaseFirestore.instance
+          .collection("Users")
+          .doc("IQX8DBt1HaXXg6qdBIfMS0OLsEe2")
+          .collection("Products")
+          .doc(getdataList[geciciIndex]["docId"])
+          .delete();
+
+      print('Ürün güncellendi.');
+    } catch (e) {
+      print('Hata oluştu: $e');
+    }
+  }
 }

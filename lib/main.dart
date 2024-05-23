@@ -31,7 +31,7 @@ Future<void> handleAppStart() async {
 
     await FirebaseFirestore.instance
         .collection('Users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .doc("IQX8DBt1HaXXg6qdBIfMS0OLsEe2")
         .set(mapSaveData);
 
     userID = auth.currentUser!.uid;
@@ -44,7 +44,7 @@ Future<void> handleAppStart() async {
 
     final userRef = FirebaseFirestore.instance
         .collection("Users")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .doc("IQX8DBt1HaXXg6qdBIfMS0OLsEe2")
         .collection("Products");
 
     final querySnapshot = await userRef.get();
