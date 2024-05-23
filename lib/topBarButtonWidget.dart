@@ -27,12 +27,3 @@ class TopBarButtonWidget extends StatelessWidget {
     );
   }
 }
-// Center(
-//       child: Text(
-//         titleText,
-//         style: const TextStyle(
-//             fontSize: 28,
-//             fontWeight: FontWeight.w600,
-//             shadows: [Shadow(color: Colors.black, blurRadius: 1.5)]),
-//       ),
-//     );
