@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:kedi_oto_app/constant.dart';
 
-class SearchWidget extends StatelessWidget {
+class SearchWidget extends StatefulWidget {
   const SearchWidget({super.key});
 
+  @override
+  State<SearchWidget> createState() => _SearchWidgetState();
+}
+
+class _SearchWidgetState extends State<SearchWidget> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -30,7 +35,17 @@ class SearchWidget extends StatelessWidget {
           } else {
             admin = false;
           }
-
+          getdataList = tempList;
+          for (var i = 0; i < getdataList.length; i++) {
+            String productName = getdataList[i]["productName"].toLowerCase();
+            // Eğer ürün adı arama metnini içeriyorsa, filtreye ekleyelim
+            if (productName.contains(value)) {
+              filteredList.add(getdataList[i]);
+            }
+          }
+          setState(() {
+            getdataList = filteredList;
+          });
           print('Girilen metin: $value , $admin');
         },
       ),

@@ -5,6 +5,9 @@ ValueNotifier<int> valueNotifierX = ValueNotifier(0);
 
 String userID = "";
 List<Map<String, dynamic>> getdataList = [];
+List<Map<String, dynamic>> filteredList = [];
+List<Map<String, dynamic>> tempList = [];
+
 List<String> docIDList = [];
 List<String> imageURLLL = [];
 List<Map<String, dynamic>> productPhotoList = [];
@@ -21,5 +24,4 @@ var listeboyu = getdataList.length;
 String productTitleChanged = '';
 String productParagrafChanged = '';
 String productPriceChanged = '';
-
 var updatedTitle = "";

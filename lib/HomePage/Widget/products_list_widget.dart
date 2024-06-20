@@ -18,7 +18,7 @@ class _ProductsListWidgetState extends State<ProductsListWidget> {
     return GridView.builder(
       padding: EdgeInsets.only(top: 10),
       shrinkWrap: true,
-      itemCount: getdataList.length,
+      itemCount: searchflag ? filteredList.length : getdataList.length,
       physics: NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -78,10 +78,11 @@ class _ProductsListWidgetState extends State<ProductsListWidget> {
                         ),
                         child: SizedBox(
                           width: 200,
-                          child: cachedImmage(
-                              getdataList[index]["ProductPhotoURL"][0]),
+                          child: cachedImmage(searchflag
+                              ? filteredList[index]["ProductPhotoURL"][0]
+                              : getdataList[index]["ProductPhotoURL"][0]),
                         ),
-                      ),
+                      )
                     ],
                   )),
               Container(
@@ -98,13 +99,16 @@ class _ProductsListWidgetState extends State<ProductsListWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Flexible(
-                        child: Text(getdataList[index]["productName"],
+                        child: Text(
+                            searchflag
+                                ? filteredList[index]["productName"]
+                                : getdataList[index]["productName"],
                             style: const TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w500),
                             overflow: TextOverflow.ellipsis),
                       ),
                       Text(
-                        "  ${getdataList[index]["productPrice"]} ₺",
+                        "  ${searchflag ? filteredList[index]["productPrice"] : getdataList[index]["productPrice"]} ₺",
                         style: const TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w500),
                       ),

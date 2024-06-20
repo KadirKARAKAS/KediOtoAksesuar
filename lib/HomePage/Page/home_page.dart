@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kedi_oto_app/AddProductPage/Page/add_product_homePage.dart';
 import 'package:kedi_oto_app/HomePage/Widget/products_list_widget.dart';
 import 'package:kedi_oto_app/HomePage/Widget/search_widget.dart';
 import 'package:kedi_oto_app/constant.dart';
+import 'package:kedi_oto_app/testpage.dart';
 import 'package:kedi_oto_app/topBarWidget.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,6 +15,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var urunAramaController = TextEditingController();
+
   @override
   void initState() {
     print("KESİT1");
@@ -32,10 +34,11 @@ class _HomePageState extends State<HomePage> {
 
     final querySnapshot = await userRef.get();
     getdataList.clear();
-
+    tempList.clear;
     querySnapshot.docs.forEach((doc) {
       docIDList.add(doc.id);
       getdataList.add(doc.data());
+      tempList.add(doc.data());
     });
     print("YENİ VERİLER ÇEKİLDİ!");
 
@@ -43,6 +46,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -54,11 +58,15 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   SizedBox(height: 5),
-                  SearchWidget(),
+                  searchh(size),
                   ProductsListWidget(),
                   InkWell(
                     onTap: () async {
-                      print(getdataList.length);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TestPage(),
+                          ));
                     },
                     child: Container(
                       width: 50,
@@ -81,6 +89,50 @@ class _HomePageState extends State<HomePage> {
               ));
         },
         backgroundColor: Colors.red,
+      ),
+    );
+  }
+
+  Container searchh(Size size) {
+    return Container(
+      width: size.width,
+      height: 50,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6), color: Colors.grey.shade300),
+      child: TextField(
+        controller: urunAramaController,
+        decoration: const InputDecoration(
+          icon: Padding(
+            padding: EdgeInsets.only(left: 5),
+            child: Icon(Icons.search, size: 25),
+          ),
+          hintText: "Ürün arama",
+          hintStyle: TextStyle(fontSize: 18),
+          border: InputBorder.none,
+        ),
+        onSubmitted: (String value) {
+          if (value == "kediotoadmin") {
+            admin = true;
+          } else {
+            admin = false;
+          }
+          getdataList = tempList;
+          filteredList.clear();
+          for (var i = 0; i < getdataList.length; i++) {
+            String productName = getdataList[i]["productName"].toLowerCase();
+            // Eğer ürün adı arama metnini içeriyorsa, filtreye ekleyelim
+            if (productName.contains(value)) {
+              filteredList.add(getdataList[i]);
+            }
+          }
+          setState(() {
+            getdataList = filteredList;
+          });
+          print('getDataList : $getdataList');
+          print('filteredList : $filteredList');
+
+          print('Girilen metin: $value , $admin');
+        },
       ),
     );
   }
