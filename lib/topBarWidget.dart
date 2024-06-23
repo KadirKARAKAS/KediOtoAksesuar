@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kedi_oto_app/constant.dart';
+import 'package:kedi_oto_app/constant.dart' as globals;
 
 class TopBarWidget extends StatelessWidget {
   const TopBarWidget({super.key, required this.titleText});
@@ -12,7 +12,7 @@ class TopBarWidget extends StatelessWidget {
 
     return GestureDetector(
       onDoubleTap: () {
-        if (admin) {
+        if (globals.admin) {
           showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -35,7 +35,7 @@ class TopBarWidget extends StatelessWidget {
                   TextButton(
                     child: const Text('Evet'),
                     onPressed: () {
-                      admin = false;
+                      globals.admin = false;
                       Navigator.pop(context);
                       print("admin oturumu kapatıldı");
                     },
@@ -87,7 +87,7 @@ class TopBarWidget extends StatelessWidget {
                         onPressed: () {
                           if (adminID.text == "kediotoadmin" &&
                               adminPassword.text == "anil55") {
-                            admin = true;
+                            globals.admin = true;
                             Navigator.pop(context);
                             print("admin+");
                           } else {

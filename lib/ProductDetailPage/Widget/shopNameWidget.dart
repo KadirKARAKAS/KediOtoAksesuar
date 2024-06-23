@@ -22,24 +22,6 @@ class ShopName extends StatelessWidget {
     );
   }
 
-  // SizedBox listviewWidgetMethod() {
-  //   return SizedBox(
-  //     height: 30,
-  //     child: ListView.builder(
-  //       itemCount: 2,
-  //       physics: ScrollPhysics(),
-  //       scrollDirection: Axis.horizontal,
-  //       shrinkWrap: true,
-  //       itemBuilder: (context, index) {
-  //         return Container(
-  //           decoration: BoxDecoration(
-  //               borderRadius: BorderRadius.circular(4), color: Colors.red),
-  //         );
-  //       },
-  //     ),
-  //   );
-  //}
-
   Row rowWidget() {
     return Row(
       children: [

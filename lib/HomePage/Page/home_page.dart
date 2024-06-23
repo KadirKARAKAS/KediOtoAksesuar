@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:kedi_oto_app/AddProductPage/Page/add_product_homePage.dart';
 import 'package:kedi_oto_app/HomePage/Widget/products_list_widget.dart';
 import 'package:kedi_oto_app/constant.dart';
-import 'package:kedi_oto_app/testpage.dart';
 import 'package:kedi_oto_app/topBarWidget.dart';
+import 'package:kedi_oto_app/constant.dart' as globals;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
 
     final querySnapshot = await userRef.get();
     getdataList.clear();
-    tempList.clear;
+    tempList.clear();
     querySnapshot.docs.forEach((doc) {
       docIDList.add(doc.id);
       getdataList.add(doc.data());
@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -59,36 +60,25 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(height: 5),
                   searchh(size),
                   ProductsListWidget(),
-                  InkWell(
-                    onTap: () async {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TestPage(),
-                          ));
-                    },
-                    child: Container(
-                      width: 50,
-                      height: 50,
-                      color: Colors.red,
-                    ),
-                  )
                 ],
               ),
             )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AddProductHomePage(),
-              ));
-        },
-        backgroundColor: Colors.red,
-      ),
+      floatingActionButton: globals.admin
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddProductHomePage(),
+                  ),
+                );
+              },
+              backgroundColor: Colors.red,
+            )
+          : null, // Only
     );
   }
 
@@ -114,8 +104,7 @@ class _HomePageState extends State<HomePage> {
           filteredList.clear();
           for (var i = 0; i < getdataList.length; i++) {
             String productName = getdataList[i]["productName"].toLowerCase();
-            // Eğer ürün adı arama metnini içeriyorsa, filtreye ekleyelim
-            if (productName.contains(value)) {
+            if (productName.contains(value.toLowerCase())) {
               filteredList.add(getdataList[i]);
             }
           }
@@ -125,7 +114,7 @@ class _HomePageState extends State<HomePage> {
           print('getDataList : $getdataList');
           print('filteredList : $filteredList');
 
-          print('Girilen metin: $value , $admin');
+          print('Girilen metin: $value , ${globals.admin}');
         },
       ),
     );
