@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kedi_oto_app/AddProductPage/Page/add_product_homePage.dart';
 import 'package:kedi_oto_app/HomePage/Widget/products_list_widget.dart';
-import 'package:kedi_oto_app/HomePage/Widget/search_widget.dart';
 import 'package:kedi_oto_app/constant.dart';
 import 'package:kedi_oto_app/testpage.dart';
 import 'package:kedi_oto_app/topBarWidget.dart';
@@ -111,11 +110,6 @@ class _HomePageState extends State<HomePage> {
           border: InputBorder.none,
         ),
         onSubmitted: (String value) {
-          if (value == "kediotoadmin") {
-            admin = true;
-          } else {
-            admin = false;
-          }
           getdataList = tempList;
           filteredList.clear();
           for (var i = 0; i < getdataList.length; i++) {
