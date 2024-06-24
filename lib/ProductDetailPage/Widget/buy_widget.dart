@@ -35,7 +35,7 @@ class BuyWidget extends StatelessWidget {
           SizedBox(width: 10),
           InkWell(
             onTap: () {
-              _launchURLBrowser();
+              _launchURLBrowser(context);
             },
             child: isAdmin
                 ? InkWell(
@@ -47,7 +47,7 @@ class BuyWidget extends StatelessWidget {
                             title: const Text('Ürün Kaydet'),
                             content: const SingleChildScrollView(
                               child: Text(
-                                  'Ürünü güncellemek veya silmek için lütfen seçim yapnınız .'),
+                                  'Ürünü güncellemek veya silmek için lütfen seçim yapınız.'),
                             ),
                             actions: <Widget>[
                               TextButton(
@@ -74,7 +74,6 @@ class BuyWidget extends StatelessWidget {
                                   });
                                   print(
                                       "$productTitleChanged,$productParagrafChanged,$productPriceChanged");
-                                  // await updateProduct(newData);
 
                                   productTitleChanged = "";
                                   productParagrafChanged = "";
@@ -147,13 +146,42 @@ class BuyWidget extends StatelessWidget {
           );
   }
 
-  _launchURLBrowser() async {
+  _launchURLBrowser(BuildContext context) async {
     var url = Uri.parse(getdataList[geciciIndex]["productLink"]);
-    if (await canLaunch(url.toString())) {
-      await launch(url.toString());
-    } else {
-      print("Hata: Bağlantı açılamadı");
+
+    try {
+      if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+        _showErrorDialog(context);
+      }
+    } catch (e) {
+      _showErrorDialog(context);
     }
+  }
+
+  void _showErrorDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Hata'),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Ürün linki bulunamadı.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Tamam'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> updateProduct(Map<String, dynamic> newData) async {
@@ -186,7 +214,7 @@ class BuyWidget extends StatelessWidget {
           .doc(getdataList[geciciIndex]["docId"])
           .delete();
 
-      print('Ürün güncellendi.');
+      print('Ürün silindi.');
     } catch (e) {
       print('Hata oluştu: $e');
     }
