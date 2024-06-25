@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:kedi_oto_app/constant.dart' as globals;
 
-class TopBarWidget extends StatelessWidget {
+class TopBarWidget extends StatefulWidget {
   const TopBarWidget({super.key, required this.titleText});
   final String titleText;
 
+  @override
+  State<TopBarWidget> createState() => _TopBarWidgetState();
+}
+
+class _TopBarWidgetState extends State<TopBarWidget> {
   @override
   Widget build(BuildContext context) {
     TextEditingController adminID = TextEditingController();
@@ -37,6 +42,7 @@ class TopBarWidget extends StatelessWidget {
                     onPressed: () {
                       globals.admin = false;
                       Navigator.pop(context);
+
                       print("admin oturumu kapatıldı");
                     },
                   ),
@@ -88,7 +94,9 @@ class TopBarWidget extends StatelessWidget {
                           if (adminID.text == "kediotoadmin" &&
                               adminPassword.text == "anil55") {
                             globals.admin = true;
-                            Navigator.pop(context);
+                            setState(() {
+                              Navigator.pop(context);
+                            });
                             print("admin+");
                           } else {
                             setState(() {
@@ -108,7 +116,7 @@ class TopBarWidget extends StatelessWidget {
       },
       child: Center(
         child: Text(
-          titleText,
+          widget.titleText,
           style: const TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.w500,

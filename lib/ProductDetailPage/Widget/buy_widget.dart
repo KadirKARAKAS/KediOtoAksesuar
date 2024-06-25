@@ -17,7 +17,7 @@ class BuyWidget extends StatelessWidget {
       children: [
         Container(
           width: size.width,
-          height: 70,
+          height: 60,
           color: Colors.grey.shade300,
         ),
         satinAlWidget(context),
@@ -27,7 +27,7 @@ class BuyWidget extends StatelessWidget {
 
   Widget satinAlWidget(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 5, left: 5, right: 10),
+      padding: const EdgeInsets.only(top: 7, left: 7, right: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [

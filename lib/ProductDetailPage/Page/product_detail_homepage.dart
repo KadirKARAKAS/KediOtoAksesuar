@@ -27,8 +27,8 @@ class _ProductDetailHomePageState extends State<ProductDetailHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 10),
-            const TopBarButtonWidget(titleText: ""),
+            // const SizedBox(height: 10),
+            // const TopBarButtonWidget(titleText: ""),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Stack(

@@ -13,7 +13,7 @@ class ProductParagrafInfoWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Container(
-        height: 120,
+        height: 100,
         child: SingleChildScrollView(
           child: isAdmin
               ? TextFormField(
