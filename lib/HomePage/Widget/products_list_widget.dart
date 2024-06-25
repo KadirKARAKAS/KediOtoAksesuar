@@ -16,7 +16,7 @@ class _ProductsListWidgetState extends State<ProductsListWidget> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    double aspectRatio = (screenSize.width / 2) / (screenSize.height / 2.8);
+    double aspectRatio = (screenSize.width / 2) / (screenSize.height / 3);
     return GridView.builder(
       padding: EdgeInsets.only(top: 10),
       shrinkWrap: true,
