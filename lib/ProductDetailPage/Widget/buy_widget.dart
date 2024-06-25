@@ -12,17 +12,7 @@ class BuyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Stack(
-      children: [
-        Container(
-          width: size.width,
-          height: 60,
-          color: Colors.grey.shade300,
-        ),
-        satinAlWidget(context),
-      ],
-    );
+    return satinAlWidget(context);
   }
 
   Widget satinAlWidget(BuildContext context) {

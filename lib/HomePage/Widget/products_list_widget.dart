@@ -15,22 +15,21 @@ class ProductsListWidget extends StatefulWidget {
 class _ProductsListWidgetState extends State<ProductsListWidget> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    var screenSize = MediaQuery.of(context).size;
+    double aspectRatio = (screenSize.width / 2) / (screenSize.height / 2.8);
     return GridView.builder(
       padding: EdgeInsets.only(top: 10),
       shrinkWrap: true,
       itemCount: getdataList.length,
       physics: NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 0.70,
+        childAspectRatio: aspectRatio,
         mainAxisSpacing: 7,
         crossAxisSpacing: 7,
       ),
       itemBuilder: (context, index) {
         return productContainerWidget(index);
-
-        // return productListContainerWidget(index, size);
       },
     );
   }

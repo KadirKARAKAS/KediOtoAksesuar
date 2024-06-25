@@ -6,8 +6,6 @@ import 'package:kedi_oto_app/ProductDetailPage/Widget/image_container_widget.dar
 import 'package:kedi_oto_app/ProductDetailPage/Widget/product_paragraf_info_widget.dart';
 import 'package:kedi_oto_app/ProductDetailPage/Widget/product_title_widget.dart';
 import 'package:kedi_oto_app/constant.dart';
-import 'package:kedi_oto_app/topBarButtonWidget.dart';
-
 import '../Widget/buy_widget.dart';
 import '../Widget/shopNameWidget.dart';
 
@@ -24,13 +22,12 @@ class _ProductDetailHomePageState extends State<ProductDetailHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // const SizedBox(height: 10),
-            // const TopBarButtonWidget(titleText: ""),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
               child: Stack(
                 children: [
                   Column(
@@ -46,12 +43,12 @@ class _ProductDetailHomePageState extends State<ProductDetailHomePage> {
                       const SizedBox(height: 10),
                       ProductTitleWidget(isAdmin: isAdminn),
                       ProductParagrafInfoWidget(isAdmin: isAdminn),
+                      BuyWidget(isAdmin: isAdminn),
                     ],
                   ),
                 ],
               ),
             ),
-            BuyWidget(isAdmin: isAdminn),
           ],
         ),
       ),
